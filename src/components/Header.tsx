@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { NavLink } from "react-router-dom";
 
 type HeaderPropsType = {
     
@@ -17,8 +18,16 @@ const Header: FC<HeaderPropsType> = (props) => {
             </div>
             <nav className="menu">
                 <ul>
-                    <li>Поиск Вакансий</li>
-                    <li>Избранное</li>
+                    <li>
+                        <NavLink to={'vacancies'}>
+                            Поиск Вакансий
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'favorites'}>
+                            Избранное
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>
