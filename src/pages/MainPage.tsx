@@ -1,10 +1,17 @@
 import React, { FC } from 'react'
 import { SearchInput } from '../components/SearchInput/SearchInput'
 import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
+import { useAppSelector } from '../App/store'
+import { Vacancy } from '../types'
 
 type MainPagePropsType = {}
 
 export const MainPAge: FC<MainPagePropsType> = (props) => {
+    const vacansies = useAppSelector<Vacancy[]>(state => state.vacancies)
+
+    const vacansiesList = vacansies.map(v => (
+        <VacanciesItem key={v.id} vacancy={v} />
+    ))
 
     return (
         <div className='vacansies-container'>
@@ -14,11 +21,7 @@ export const MainPAge: FC<MainPagePropsType> = (props) => {
                     <SearchInput />
                 </div>
                 <div className='vacancies__list'>
-                    <VacanciesItem employmentType='Full day'
-                                   location='Minsk'
-                                   salary='2000$'
-                                   title='Best Work'
-                    />
+                    {vacansiesList}
                 </div>
             </div>
         </div>

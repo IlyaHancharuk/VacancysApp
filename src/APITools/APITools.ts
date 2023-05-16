@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Vacancy } from "../types";
 
 type AuthResponseType = {
     access_token: string;
@@ -8,6 +9,13 @@ type AuthResponseType = {
     token_type: string;
     ttl: number;
 }
+
+type GetVacanciesResponseType = {
+    objects: Vacancy[]
+    total: number,
+    more: boolean
+}
+
 const baseURL = 'https://startup-summer-2023-proxy.onrender.com/2.0/';
 const PASSWORD = 'GEU4nvd3rej*jeh.eqp';
 enum PassDate {
@@ -52,15 +60,14 @@ const defaultFilterParams = {
 export const vacancyAPI = {
     async getAuth() {
         return await axios
-            .get<AuthResponseType>(`${baseURL}oauth2/password
-                ?login=${PassDate.login}&password=${PassDate.password}
-                &client_id=${PassDate.client_id}
-                &client_secret=${PassDate.client_secret}&hr=${PassDate.hr}`,
+            .get<AuthResponseType>
+                (`${baseURL}oauth2/password?login=${PassDate.login}&password=${PassDate.password}&client_id=${PassDate.client_id}&client_secret=${PassDate.client_secret}&hr=${PassDate.hr}`,
                 { headers: { 'x-secret-key': PASSWORD, } }
             );
     },
-    getVacancys(params: FilterParamsType = defaultFilterParams) {
-        return instance.get(`vacancies?published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.catalogues}`)
+    getVacancies(params: FilterParamsType = defaultFilterParams) {
+        return instance.get<GetVacanciesResponseType>
+            (`vacancies?published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.catalogues}`)
     },
     getCatalogies() {
         return instance.get('catalogues')
