@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import Button from '../components/Buttons/Button/Button'
 import TextButton from '../components/Buttons/TextButton/TextButton'
 import { FavoriteButton } from '../components/Buttons/FavoriteButton/FavoriteButton'
+import { SearchInput } from '../components/SearchInput/SearchInput'
 
 type MainPagePropsType = {}
 
@@ -26,6 +27,7 @@ export const MainPAge: FC<MainPagePropsType> = (props) => {
             <br />
             <FavoriteButton />
             <br />
+            <SearchInput />
             <br />
 
             <TextButton onClick={resetHandler} innerText='Сбросить все' ></TextButton>
