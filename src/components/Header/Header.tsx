@@ -13,8 +13,8 @@ const Header: FC<HeaderPropsType> = (props) => {
         ['favorites', 'Избранное']
     ]
 
-    const linksList = navLinks.map((link) => (
-        <li className="menu__item">
+    const linksList = navLinks.map((link, i) => (
+        <li className="menu__item" key={`navlink-${i}`}>
             <NavLink to={link[0]}
                      className={({ isActive }) => isActive ? "active" : ""}
             >

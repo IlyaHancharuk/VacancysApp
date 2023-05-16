@@ -1,0 +1,78 @@
+.default {
+    position: relative;
+    font-family: 'Inter-Medium';
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: var(--Blue-400);
+    padding: 2px 17px 2px 2px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    transition: 0.3ms all;
+    -webkit-transition: 0.3ms all;
+    -moz-transition: 0.3ms all;
+    -ms-transition: 0.3ms all;
+    -o-transition: 0.3ms all;
+}
+
+.default:hover {
+    cursor: pointer;
+    color: var(--Blue-500-Main);
+}
+
+.default:active {
+    color: var(--Blue-500-Main);
+}
+
+.default:disabled {
+    color: var(--Gray-500);
+    transform: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+}
+
+.default:disabled:hover {
+    cursor: auto;
+}
+
+.default span {
+    display: inline-block;
+    position: absolute;
+    width: 10.32px;
+    height: 0px;
+    border: 0.75px solid var(--Blue-400);
+    top: 12px;
+    right: 0;;
+}
+
+.default:hover span {
+    border: 0.75px solid var(--Blue-500-Main);
+}
+.default:active span {
+    border: 0.75px solid var(--Blue-500-Main);
+}
+.default:disabled span {
+    border: 0.75px solid var(--Gray-500);
+}
+
+.line1 {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+}
+.line2 {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+}
