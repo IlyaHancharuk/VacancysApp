@@ -1,0 +1,49 @@
+.vacancies__item {
+    position: relative;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    background-color: var(--White);
+    border: 1px solid var(--Gray-200);
+    border-radius: 8px;
+
+    .item__title {
+        font-family: 'Inter-SemiBold';
+        font-size: 20px;
+        line-height: 24px;
+        color: var(--Blue-500-Main);
+    }
+
+    .item__description {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        line-height: 20px;
+
+        .salary {
+            font-family: 'Inter-SemiBold';
+        }
+
+        .dot {
+            color: var(--Gray-600);
+        }
+
+        .employment-type {
+            font-family: 'Inter-Regular';
+        }
+    }
+
+    .item__location {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+    .item__favorite-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+}

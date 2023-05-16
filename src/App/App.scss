@@ -1,0 +1,30 @@
+.content-wrapper {
+    max-width: 1156px;
+    padding: 0 20px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.vacansies-container {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 315px auto;
+}
+
+.filter-block {
+    
+}
+
+.vacancies {
+
+}
+
+.vacansies__search-input {
+    margin-bottom: 16px;
+}
+
+.vacancies__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
