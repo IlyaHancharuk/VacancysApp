@@ -5,18 +5,22 @@ import Header from '../components/Header/Header';
 import { Routes, Route } from "react-router-dom";
 import { FavoritesPage } from '../pages/FavoritesPage';
 import { VacancyPage } from '../pages/VacancyPage';
-import { vacancyAPI } from '../APITools/APITools';
+import { favoriteVacanciesAPI, vacancyAPI } from '../APITools/APITools';
 import { useAppDispatch, useAppSelector } from './store';
-import { setVacansies } from './reducers/vacanciesReducer';
+import { setVacansiesAC } from './reducers/vacanciesReducer';
+import { getFavoriteVacancies } from './reducers/favoritesReducer';
 
 const App = () => {
     const dispatch = useAppDispatch()
     const vacancies = useAppSelector(state => state.vacancies)
 
     useEffect(() => {
+        let favoriteVacanciesResp = favoriteVacanciesAPI.getFavoriteVacancies()
+        const favoriteVacancies = favoriteVacanciesResp || []
         vacancyAPI.getVacancies().then(res => {
-            dispatch(setVacansies(res.data.objects))
+            dispatch(setVacansiesAC(res.data.objects, favoriteVacancies))
         })
+        dispatch(getFavoriteVacancies())
     }, [dispatch])
 
     if (vacancies.length === 0) {

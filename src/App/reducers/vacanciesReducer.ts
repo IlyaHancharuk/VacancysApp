@@ -1,11 +1,20 @@
 import { Vacancy } from "../../types";
 
 const initialState: Vacancy[] = []
-
+type FavoriteVacanciesStateType = {
+    [id: number]: Vacancy
+}
 export const vacanciesReducer = (state = initialState, action: VacanciesActionType): Vacancy[] => {
     switch (action.type) {
         case "SET-VACANCIES":
-            action.vacansies.forEach(v => v.isFavorite = false)
+            const obj: FavoriteVacanciesStateType = {}
+            action.favoriteVacancies.forEach(fv => obj[fv.id] = fv)
+
+            action.vacansies.forEach(v => {
+                obj[v.id]
+                    ? v.isFavorite = true
+                    : v.isFavorite = false
+            })
             return [ ...state, ...action.vacansies ]
         case "UPDATE-FAVORITE-STATUS":
             return state.map(v =>
@@ -17,18 +26,19 @@ export const vacanciesReducer = (state = initialState, action: VacanciesActionTy
     }
 }
 
-export type VacanciesActionType = ReturnType<typeof setVacansies>
-    | ReturnType<typeof updateVacansyFavoriteStatus>
+export type VacanciesActionType = ReturnType<typeof setVacansiesAC>
+    | ReturnType<typeof updateVacansyFavoriteStatusAC>
 
-export type SetVacansiesActionType = ReturnType<typeof setVacansies>
-export const setVacansies = (vacansies: Vacancy[]) => {
+export type SetVacansiesActionType = ReturnType<typeof setVacansiesAC>
+export const setVacansiesAC = (vacansies: Vacancy[], favoriteVacancies: Vacancy[]) => {
     return {
         type: "SET-VACANCIES",
-        vacansies
+        vacansies,
+        favoriteVacancies
     } as const
 }
 
-export const updateVacansyFavoriteStatus = (id: number, isFavorite: boolean) => {
+export const updateVacansyFavoriteStatusAC = (id: number, isFavorite: boolean) => {
     return {
         type: "UPDATE-FAVORITE-STATUS",
         id,

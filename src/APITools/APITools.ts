@@ -72,5 +72,30 @@ export const vacancyAPI = {
     getCatalogies() {
         return instance.get('catalogues')
     }
+}
 
+export const favoriteVacanciesAPI = {
+    getFavoriteVacancies() {
+        const value = localStorage.getItem('favoriteVacancies')
+        if (value) {
+            return JSON.parse(value) as Vacancy[]
+        }
+    },
+
+    addFavoriteVacancies(vacancy: Vacancy) {
+        const favoriteVacancies = this.getFavoriteVacancies()
+        const newFavoriteVacancies: Vacancy[] =
+            favoriteVacancies
+                ? [...favoriteVacancies, { ...vacancy, isFavorite: true }]
+                : [{ ...vacancy, isFavorite: true }]
+        localStorage.setItem('favoriteVacancies', JSON.stringify(newFavoriteVacancies))
+    },
+    
+    removeFavoriteVacancies(vacancyId: number) {
+        const favoriteVacancies = this.getFavoriteVacancies()
+        if (favoriteVacancies) {
+            const newFavoriteVacancies: Vacancy[] = favoriteVacancies.filter(fv => fv.id !== vacancyId)
+            localStorage.setItem('favoriteVacancies', JSON.stringify(newFavoriteVacancies))
+        }
+    }
 }

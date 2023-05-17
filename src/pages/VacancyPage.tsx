@@ -9,17 +9,19 @@ type VacancyPagePropsType = {
 
 export const VacancyPage: FC<VacancyPagePropsType> = (props) => {
     const vacancies = useAppSelector(state => state.vacancies)
+    const favorite = useAppSelector(state => state.favorite)
     const { vacancyId } = useParams()
     const id = vacancyId ? Number(vacancyId) : null
-    const vacancy = vacancies.filter(v => v.id === id)
-    const description = vacancy[0].vacancyRichText
+    const vacancy = vacancies.find(v => v.id === id) || favorite.find(v => v.id === id)
 
     return (
         vacancy
         ? <div className='vacancy'>
-            <VacanciesItem vacancy={vacancy[0]} withLink={false}/>
-            <div className='vacancy__description _card' dangerouslySetInnerHTML={{__html: description}}></div>
+            <VacanciesItem vacancy={vacancy} withLink={false}/>
+            <div className='vacancy__description _card'
+                 dangerouslySetInnerHTML={{__html: vacancy.vacancyRichText}}>
+            </div>
         </div>
-        : <div>Oops!</div>
+        : <h1>Oops!</h1>
     )
 }

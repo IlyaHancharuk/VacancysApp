@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 import { ActionIcon } from '@mantine/core'
 import { useAppDispatch } from '../../../App/store'
-import { updateVacansyFavoriteStatus } from '../../../App/reducers/vacanciesReducer'
-import { addFavoriteVacancy, removeFavoriteVacancy } from '../../../App/reducers/favoritesReducer'
 import { Vacancy } from '../../../types'
+import { addFavoriteVacancy, removeFavoriteVacancy } from '../../../App/reducers/favoritesReducer'
 
 type FavoriteButtonPropsType = {
     vacancy: Vacancy
@@ -18,10 +17,8 @@ export const FavoriteButton: FC<FavoriteButtonPropsType> = ({
 
     const onClickHundler = () => {
         if (vacancy.isFavorite) {
-            dispatch(updateVacansyFavoriteStatus(vacancy.id, false))
             dispatch(removeFavoriteVacancy(vacancy.id))
         } else {
-            dispatch(updateVacansyFavoriteStatus(vacancy.id, true))
             dispatch(addFavoriteVacancy(vacancy))
         }
     }
