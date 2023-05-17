@@ -1,0 +1,18 @@
+.select-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.select-icon svg {
+    stroke: var(--Gray-500);
+}
+
+.select-icon svg:hover {
+    stroke: var(--Blue-400);
+}
+
+.select-icon.active svg  {
+    stroke: var(--Blue-500-Main);
+    transform:  scale(1, -1);
+}
