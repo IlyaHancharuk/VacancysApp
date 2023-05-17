@@ -1,4 +1,5 @@
 export type Vacancy = {
+    isFavorite: boolean
     id: number,
     payment_from: number,
     payment_to: number,

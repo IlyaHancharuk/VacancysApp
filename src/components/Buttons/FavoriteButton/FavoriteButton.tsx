@@ -1,19 +1,32 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { ActionIcon } from '@mantine/core'
+import { useAppDispatch } from '../../../App/store'
+import { updateVacansyFavoriteStatus } from '../../../App/reducers/vacanciesReducer'
+import { addFavoriteVacancy, removeFavoriteVacancy } from '../../../App/reducers/favoritesReducer'
+import { Vacancy } from '../../../types'
 
 type FavoriteButtonPropsType = {
+    vacancy: Vacancy
     disabled?: boolean
 }
 
-export const FavoriteButton: FC<FavoriteButtonPropsType> = ({ disabled }) => {
-
-    const [isFavorite, setFavorite] = useState<boolean>(false)
+export const FavoriteButton: FC<FavoriteButtonPropsType> = ({
+    disabled,
+    vacancy,
+}) => {
+    const dispatch = useAppDispatch()
 
     const onClickHundler = () => {
-        isFavorite ? setFavorite(false) : setFavorite(true)
+        if (vacancy.isFavorite) {
+            dispatch(updateVacansyFavoriteStatus(vacancy.id, false))
+            dispatch(removeFavoriteVacancy(vacancy.id))
+        } else {
+            dispatch(updateVacansyFavoriteStatus(vacancy.id, true))
+            dispatch(addFavoriteVacancy(vacancy))
+        }
     }
 
-    const svgFill = isFavorite && !disabled ? '#5E96FC' : ''
+    const svgFill = vacancy.isFavorite && !disabled ? '#5E96FC' : ''
     const svgStroke = disabled ? '#ACADB9' :'#5E96FC'
 
     return (

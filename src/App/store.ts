@@ -5,9 +5,11 @@ import { ThunkDispatch } from "redux-thunk/es/types";
 import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { VacanciesActionType, vacanciesReducer } from './reducers/vacanciesReducer';
+import { favoriteReducer } from './reducers/favoritesReducer';
 
 const rootReducer = combineReducers({
     vacancies: vacanciesReducer,
+    favorite: favoriteReducer
     //catalogues: cataloguesReducer,
 })
 

@@ -42,7 +42,7 @@ export const VacanciesItem: FC<VacanciesItemPropsType> = ({
                 <span>{vacancy.town.title}</span>
             </div>
             <div className='item__favorite-button'>
-                <FavoriteButton />
+                <FavoriteButton vacancy={vacancy} />
             </div>
         </div>
     )

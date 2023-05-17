@@ -59,12 +59,10 @@
     color: var(--Black);
 }
 
-
-
-
-
-
-
-
-
-
+.favorite-list {
+    max-width: 773px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
