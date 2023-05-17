@@ -3,13 +3,16 @@ import './vacanciesItem.scss'
 import { FavoriteButton } from '../Buttons/FavoriteButton/FavoriteButton'
 import icon from './../../assets/svg/icon.svg'
 import { Vacancy } from '../../types'
+import { NavLink } from 'react-router-dom'
 
 type VacanciesItemPropsType = {
     vacancy: Vacancy
+    withLink: boolean
 }
 
 export const VacanciesItem: FC<VacanciesItemPropsType> = ({
-    vacancy
+    vacancy,
+    withLink
 }) => {
     const salary = (function () {
         const {payment_from, payment_to, currency } = vacancy
@@ -20,9 +23,15 @@ export const VacanciesItem: FC<VacanciesItemPropsType> = ({
         return ''
     })()
 
-    return (
-        <div className='vacancies__item'>
+    const title = withLink
+        ? <NavLink to={`/vacancies/${vacancy.id}`} end>
             <div className='item__title'>{vacancy.profession}</div>
+        </NavLink>
+        : <div className='item__title'>{vacancy.profession}</div>
+
+    return (
+        <div className='vacancies__item _card'>
+            {title}
             <div className='item__description'>
                 <span className='salary'>{salary}</span>
                 <span className='dot'> • </span>

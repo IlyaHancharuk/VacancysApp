@@ -1,12 +1,8 @@
 .vacancies__item {
     position: relative;
-    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 13px;
-    background-color: var(--White);
-    border: 1px solid var(--Gray-200);
-    border-radius: 8px;
 
     .item__title {
         padding-right: 30px;

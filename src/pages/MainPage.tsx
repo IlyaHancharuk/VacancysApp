@@ -6,11 +6,11 @@ import { Vacancy } from '../types'
 
 type MainPagePropsType = {}
 
-export const MainPAge: FC<MainPagePropsType> = (props) => {
+export const MainPage: FC<MainPagePropsType> = (props) => {
     const vacansies = useAppSelector<Vacancy[]>(state => state.vacancies)
 
     const vacansiesList = vacansies.map(v => (
-        <VacanciesItem key={v.id} vacancy={v} />
+        <VacanciesItem key={v.id} vacancy={v} withLink/>
     ))
 
     return (

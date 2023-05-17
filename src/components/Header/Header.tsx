@@ -15,7 +15,7 @@ const Header: FC<HeaderPropsType> = (props) => {
 
     const linksList = navLinks.map((link, i) => (
         <li className="menu__item" key={`navlink-${i}`}>
-            <NavLink to={link[0]}
+            <NavLink to={link[0]} end
                      className={({ isActive }) => isActive ? "active" : ""}
             >
                 {link[1]}
