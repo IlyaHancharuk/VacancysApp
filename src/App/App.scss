@@ -16,18 +16,25 @@
     display: grid;
     gap: 28px;
     grid-template-columns: 315px auto;
-}
-
-.filter-block {
-    
-}
-
-.vacancies {
-
+    padding-bottom: 40px;
 }
 
 .vacansies__search-input {
     margin-bottom: 16px;
+}
+
+.vacansies__search-input input[type="text"] {
+    padding: 0;
+    padding-left: 3.125rem;
+    font-family: 'Inter-Regular';
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--Black);
+    border-width: 1px;
+}
+
+.vacansies__search-input input::placeholder {
+    color: var(--Gray-500);
 }
 
 .vacancies__list {

@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
 import { SearchInput } from '../components/SearchInput/SearchInput'
-import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
+import Filters from '../components/Filters/Filters'
 import { useAppSelector } from '../App/store'
 import { Vacancy } from '../types'
+import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
 
 type MainPagePropsType = {}
 
@@ -15,7 +16,7 @@ export const MainPage: FC<MainPagePropsType> = (props) => {
 
     return (
         <div className='vacansies-container'>
-            <div className='filter-block'>FilterBlock</div>
+            <Filters selectItems={['React', 'Angular', 'Svelte', 'Vue']}/>
             <div className='vacancies'>
                 <div className='vacansies__search-input'>
                     <SearchInput />

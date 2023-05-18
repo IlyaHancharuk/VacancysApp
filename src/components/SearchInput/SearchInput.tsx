@@ -25,8 +25,13 @@ export const SearchInput = () => {
             placeholder="Введите название вакансии"
             radius={'8px'}
             size='lg'
-            rightSection={<Button children={'Поиск'} onClick={startSearch} />}
-            rightSectionWidth={100}
+            rightSection={<Button size='s' children={'Поиск'} onClick={startSearch} />}
+            rightSectionWidth={83}
+            styles={{
+                rightSection: {
+                    marginRight: '12px'
+                }
+            }}
         />
     )
 }

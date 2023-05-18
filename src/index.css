@@ -77,19 +77,6 @@ body {
     src: url('./assets/fonts/Poppins-SemiBold.ttf');
 }
 
-input[type="text"], input[type="number"] {
-    padding: 0;
-    font-family: 'Inter-Regular';
-    font-size: 14px;
-    line-height: 21px;
-    color: var(--Black);
-    border-width: 1px;
-}
-
-input::placeholder {
-    color: var(--Gray-500);
-}
-
 a {
     text-decoration: none;
 }

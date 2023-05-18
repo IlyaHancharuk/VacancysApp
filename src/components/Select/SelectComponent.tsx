@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import './selectComponent.scss'
 import { Select } from '@mantine/core'
 import { SelectIcon } from './SelectIcon/SelectIcon'
 
-export const SelectComponent = () => {
+type SelectComponentPropsType = {
+    items: string[]
+}
+
+export const SelectComponent: FC<SelectComponentPropsType> = ({ items }) => {
     const [open, setOpen] = useState(false)
     const onClickHandler = () => {
         setOpen(!open)
@@ -13,7 +17,7 @@ export const SelectComponent = () => {
     }
     return (
         <div className='select-component'>
-            <Select data={['React', 'Angular', 'Svelte', 'Vue']}
+            <Select data={items}
                     placeholder='Выберите отрасль'
                     rightSection={<SelectIcon open={open} />}
                     rightSectionWidth={16}
