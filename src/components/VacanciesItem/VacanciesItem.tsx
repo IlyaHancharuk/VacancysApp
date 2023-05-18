@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import './vacanciesItem.scss'
 import { FavoriteButton } from '../Buttons/FavoriteButton/FavoriteButton'
-import icon from './../../assets/svg/icon.svg'
+import locationIcon from './../../assets/svg/location.svg'
 import { Vacancy } from '../../types'
 import { NavLink } from 'react-router-dom'
 
@@ -38,7 +38,7 @@ export const VacanciesItem: FC<VacanciesItemPropsType> = ({
                 <span className='employment-type'>{vacancy.type_of_work.title}</span>
             </div>
             <div className='item__location'>
-                <img src={icon} alt="location-icon" />
+                <img src={locationIcon} alt="location-icon" />
                 <span>{vacancy.town.title}</span>
             </div>
             <div className='item__favorite-button'>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { MainPage } from '../pages/MainPage';
+import { VacansiesPage } from '../pages/VacansiesPage';
 import Header from '../components/Header/Header';
 import { Routes, Route } from "react-router-dom";
 import { FavoritesPage } from '../pages/FavoritesPage';
@@ -34,8 +34,8 @@ const App = () => {
             <Header />
             <main className='content-wrapper'>
                 <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/vacancies" element={<MainPage />} />
+                    <Route path="/" element={<VacansiesPage />} />
+                    <Route path="/vacancies" element={<VacansiesPage />} />
                     <Route path="/favorites" element={<FavoritesPage />} />
                     <Route path="/vacancies/:vacancyId" element={<VacancyPage />} />
                 </Routes>

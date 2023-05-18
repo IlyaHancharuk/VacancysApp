@@ -5,9 +5,9 @@ import { useAppSelector } from '../App/store'
 import { Vacancy } from '../types'
 import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
 
-type MainPagePropsType = {}
+type VacansiesPagePropsType = {}
 
-export const MainPage: FC<MainPagePropsType> = (props) => {
+export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
     const vacansies = useAppSelector<Vacancy[]>(state => state.vacancies)
 
     const vacansiesList = vacansies.map(v => (
