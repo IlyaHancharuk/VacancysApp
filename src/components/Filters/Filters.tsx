@@ -4,31 +4,45 @@ import TextButton from "../Buttons/TextButton/TextButton";
 import { SelectComponent } from "../Select/SelectComponent";
 import { SalaryInput } from "../SalaryInput/SalaryInput";
 import Button from "../Buttons/Button/Button";
+import { useForm } from '@mantine/form';
+import { FiltersFormValuesType } from "../../types";
 
 type FiltersPropsType = {
     selectItems: string[]
 }
 
 const Filters: FC<FiltersPropsType> = ({ selectItems }) => {
+    const form = useForm<FiltersFormValuesType>({
+        initialValues: {
+            category: '',
+            payment_from: '',
+            payment_to: '',
+        },
+    });
+
     return (
         <div className='filters'>
+            <form onSubmit={form.onSubmit((values) => console.log(values))}
+                  onReset={form.onReset}
+            >
                 <div className='filters__top-block'>
                     <h3 className='filters__title'>Фильтры</h3>
-                    <TextButton innerText='Сбросить все' />
+                    <TextButton type="reset" innerText='Сбросить все' />
                 </div>
                 <h5 className='filters__subtitle'>Отрасль</h5>
                 <div className='filters__category-select'>
-                    <SelectComponent items={selectItems}/>
+                    <SelectComponent form={form} formValue="category" items={selectItems} />
                 </div>
                 <h5 className='filters__subtitle'>Оклад</h5>
                 <div className='filters__salary-inputs'>
-                    <SalaryInput placeholder='От'/>
-                    <SalaryInput placeholder='До'/>
+                    <SalaryInput placeholder='От' form={form} formValue="payment_from" />
+                    <SalaryInput placeholder='До' form={form} formValue="payment_to" />
                 </div>
                 <div className='filters__submit-button'>
-                    <Button>Применить</Button>
+                    <Button type="submit">Применить</Button>
                 </div>
-            </div>
+            </form>
+        </div>
     )
 }
 

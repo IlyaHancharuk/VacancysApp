@@ -4,6 +4,9 @@
     background-color: var(--White);
     border: 1px solid var(--Gray-200);
     border-radius: 8px;
+}
+
+.filters form {
     display: flex;
     flex-direction: column;
     gap: 8px;

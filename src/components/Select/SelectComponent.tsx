@@ -2,22 +2,35 @@ import React, { FC, useState } from 'react'
 import './selectComponent.scss'
 import { Select } from '@mantine/core'
 import { SelectIcon } from './SelectIcon/SelectIcon'
+import { UseFormReturnType } from '@mantine/form'
+import { FiltersFormValuesType } from '../../types'
 
 type SelectComponentPropsType = {
     items: string[]
+    form: UseFormReturnType<FiltersFormValuesType>
+    formValue: string
 }
 
-export const SelectComponent: FC<SelectComponentPropsType> = ({ items }) => {
+export const SelectComponent: FC<SelectComponentPropsType> = ({ items, form, formValue }) => {
     const [open, setOpen] = useState(false)
     const onClickHandler = () => {
         setOpen(!open)
     }
+
+    const { onChange } = {...form.getInputProps(formValue)}
+
+    const onChangeHandler = (value: string | null) => {
+        setOpen(!open)
+        onChange(value)
+    }
+
     const onBlurHandler = () => {
         setOpen(false)
     }
     return (
         <div className='select-component'>
             <Select data={items}
+                    {...form.getInputProps(formValue)}
                     placeholder='Выберите отрасль'
                     rightSection={<SelectIcon open={open} />}
                     rightSectionWidth={16}
@@ -40,7 +53,7 @@ export const SelectComponent: FC<SelectComponentPropsType> = ({ items }) => {
                     radius={8}
                     onClick={onClickHandler}
                     onBlur={onBlurHandler}
-                    onChange={onClickHandler}
+                    onChange={onChangeHandler}
             />
         </div>
     )

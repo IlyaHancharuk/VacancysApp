@@ -14,3 +14,9 @@ export type Vacancy = {
     firm_name: string,
     vacancyRichText: string
 }
+
+export type FiltersFormValuesType = {
+    payment_from: number | '',
+    payment_to: number | '',
+    category: string
+}

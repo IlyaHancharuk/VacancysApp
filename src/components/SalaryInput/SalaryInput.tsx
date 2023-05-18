@@ -1,26 +1,26 @@
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useRef } from 'react'
 import { NumberInput, NumberInputHandlers } from '@mantine/core'
 import { InputControlButtons } from './InputControlButtons/InputControlButtons'
+import { UseFormReturnType } from '@mantine/form'
+import { FiltersFormValuesType } from '../../types'
 
 type SalaryInputPropsType = {
     placeholder: string
+    form: UseFormReturnType<FiltersFormValuesType>
+    formValue: string
 }
 
-export const SalaryInput: FC<SalaryInputPropsType> = ({ placeholder }) => {
-    const [value, setValue] = useState<number | ''>('');
+export const SalaryInput: FC<SalaryInputPropsType> = ({ placeholder, form, formValue }) => {
     const handlers = useRef<NumberInputHandlers>();
 
     return (
         <div>
-            <NumberInput value={value} onChange={setValue}
+            <NumberInput {...form.getInputProps(formValue)}
                          type='number'
                          hideControls
                          handlersRef={handlers}
                          placeholder={placeholder}
                          min={0}
-                         step={500}
-                         stepHoldDelay={500}
-                         stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                          rightSection={ 
                             <InputControlButtons increment={() => handlers.current?.increment()}
                                                  decrement={() => handlers.current?.decrement()}
