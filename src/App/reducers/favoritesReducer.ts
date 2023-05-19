@@ -6,8 +6,6 @@ import { favoriteVacanciesAPI } from "../../APITools/APITools";
 
 const initialState: Vacancy[] = []
 
-
-
 export const favoriteReducer = (state = initialState, action: FavoriteActionType): Vacancy[] => {
     switch (action.type) {
         case "SET-FAVORITE-VACANCIES":

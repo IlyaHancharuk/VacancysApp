@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Vacancy } from "../types";
+import { Category, Vacancy } from "../types";
 
 type AuthResponseType = {
     access_token: string;
@@ -15,6 +15,8 @@ type GetVacanciesResponseType = {
     total: number,
     more: boolean
 }
+
+type GetCategoriesResponseType = Category[]
 
 const baseURL = 'https://startup-summer-2023-proxy.onrender.com/2.0/';
 const PASSWORD = 'GEU4nvd3rej*jeh.eqp';
@@ -69,8 +71,8 @@ export const vacancyAPI = {
         return instance.get<GetVacanciesResponseType>
             (`vacancies?published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.catalogues}`)
     },
-    getCatalogies() {
-        return instance.get('catalogues')
+    getCategories() {
+        return instance.get<GetCategoriesResponseType>('catalogues')
     }
 }
 

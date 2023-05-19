@@ -6,11 +6,12 @@ import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { VacanciesActionType, vacanciesReducer } from './reducers/vacanciesReducer';
 import { FavoriteActionType, favoriteReducer } from './reducers/favoritesReducer';
+import { categoriesReducer } from './reducers/categoriesReducer';
 
 const rootReducer = combineReducers({
     vacancies: vacanciesReducer,
-    favorite: favoriteReducer
-    //catalogues: cataloguesReducer,
+    favorite: favoriteReducer,
+    categories: categoriesReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

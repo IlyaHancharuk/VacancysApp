@@ -20,3 +20,8 @@ export type FiltersFormValuesType = {
     payment_to: number | '',
     category: string
 }
+
+export type Category = {
+    key: number,
+    title_rus: string
+}
