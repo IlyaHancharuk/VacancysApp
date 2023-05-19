@@ -24,4 +24,5 @@ export type FiltersFormValuesType = {
 export type Category = {
     key: number,
     title_rus: string
+    title_trimmed: string
 }

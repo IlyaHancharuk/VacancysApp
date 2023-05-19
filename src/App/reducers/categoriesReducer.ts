@@ -24,6 +24,10 @@ export const setCategoriesAC = (categories: Category[]) => {
 
 export const getCaregories = () => async (dispatch: Dispatch) => {
     const res = await vacancyAPI.getCategories()
-    const categories = res.data.map(c => ({ key: c.key, title_rus: c.title_rus }))
+    const categories = res.data.map(c => ({
+        key: c.key,
+        title_rus: c.title_rus,
+        title_trimmed: c.title_trimmed
+    }))
     dispatch(setCategoriesAC(categories)) 
 }

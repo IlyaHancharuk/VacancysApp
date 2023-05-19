@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react'
 import './selectComponent.scss'
-import { Select } from '@mantine/core'
+import { Select, SelectItem } from '@mantine/core'
 import { SelectIcon } from './SelectIcon/SelectIcon'
 import { UseFormReturnType } from '@mantine/form'
 import { FiltersFormValuesType } from '../../types'
 
 type SelectComponentPropsType = {
-    items: string[]
+    items: SelectItem[]
     form: UseFormReturnType<FiltersFormValuesType>
     formValue: string
 }
