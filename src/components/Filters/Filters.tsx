@@ -12,7 +12,7 @@ import { setFormParamsAC } from "../../App/reducers/filterParamsReducer";
 
 type FiltersPropsType = {
     selectItems: SelectItem[]
-    onSubmitCallback(): void
+    onSubmitCallback(filterValues: FiltersFormValuesType): void
 }
 
 const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback }) => {
@@ -41,7 +41,7 @@ const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback }) => {
         <div className='filters'>
             <form onSubmit={form.onSubmit((values) => {
                         dispatch(setFormParamsAC(values))
-                        onSubmitCallback()
+                        onSubmitCallback(values)
                     })}
                   onReset={form.onReset}
             >

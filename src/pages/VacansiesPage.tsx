@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../App/store'
 import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
 import { SelectItem } from '@mantine/core'
 import { getVacancies } from '../App/reducers/vacanciesReducer'
+import { FiltersFormValuesType } from '../types'
 
 type VacansiesPagePropsType = {}
 
@@ -32,9 +33,13 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
         dispatch(getVacancies(favorites, filterParams))
     }
 
+    const onSubmitFiltersCallback = (filterValues: FiltersFormValuesType) => {
+        dispatch(getVacancies(favorites, { ...filterValues, keyword: filterParams.keyword}))
+    }
+
     return (
         <div className='vacansies-container'>
-            <Filters onSubmitCallback={onSubmitCallback} selectItems={selectItems} />
+            <Filters onSubmitCallback={onSubmitFiltersCallback} selectItems={selectItems} />
             <div className='vacancies'>
                 <div className='vacansies__search-input'>
                     <SearchInput onSubmitCallback={onSubmitCallback} />
