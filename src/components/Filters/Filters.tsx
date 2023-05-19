@@ -12,13 +12,24 @@ type FiltersPropsType = {
 }
 
 const Filters: FC<FiltersPropsType> = ({ selectItems }) => {
+    const initialValues: FiltersFormValuesType = {
+        category: '',
+        payment_from: '',
+        payment_to: '',
+    }
+
     const form = useForm<FiltersFormValuesType>({
-        initialValues: {
-            category: '',
-            payment_from: '',
-            payment_to: '',
-        },
+        initialValues: initialValues,
+        initialDirty: {
+            category: true,
+            payment_from: true,
+            payment_to: true,
+        }
     });
+
+    const resetButtonDisabled = 
+        !form.isDirty()
+        || JSON.stringify(form.values) === JSON.stringify(initialValues)
 
     return (
         <div className='filters'>
@@ -27,7 +38,7 @@ const Filters: FC<FiltersPropsType> = ({ selectItems }) => {
             >
                 <div className='filters__top-block'>
                     <h3 className='filters__title'>Фильтры</h3>
-                    <TextButton type="reset" innerText='Сбросить все' />
+                    <TextButton disabled={resetButtonDisabled} type="reset" innerText='Сбросить все' />
                 </div>
                 <h5 className='filters__subtitle'>Отрасль</h5>
                 <div className='filters__category-select'>
