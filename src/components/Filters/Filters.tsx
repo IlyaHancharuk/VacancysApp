@@ -7,12 +7,15 @@ import Button from "../Buttons/Button/Button";
 import { useForm } from '@mantine/form';
 import { FiltersFormValuesType } from "../../types";
 import { SelectItem } from "@mantine/core";
+import { useAppDispatch } from "../../App/store";
+import { setFormParamsAC } from "../../App/reducers/filterParamsReducer";
 
 type FiltersPropsType = {
     selectItems: SelectItem[]
+    onSubmitCallback(): void
 }
 
-const Filters: FC<FiltersPropsType> = ({ selectItems }) => {
+const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback }) => {
     const initialValues: FiltersFormValuesType = {
         category: '',
         payment_from: '',
@@ -28,13 +31,18 @@ const Filters: FC<FiltersPropsType> = ({ selectItems }) => {
         }
     });
 
+    const dispatch = useAppDispatch()
+
     const resetButtonDisabled = 
         !form.isDirty()
         || JSON.stringify(form.values) === JSON.stringify(initialValues)
 
     return (
         <div className='filters'>
-            <form onSubmit={form.onSubmit((values) => console.log(values))}
+            <form onSubmit={form.onSubmit((values) => {
+                        dispatch(setFormParamsAC(values))
+                        onSubmitCallback()
+                    })}
                   onReset={form.onReset}
             >
                 <div className='filters__top-block'>

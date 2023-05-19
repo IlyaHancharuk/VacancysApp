@@ -1,9 +1,16 @@
 import { vacancyAPI } from "../../APITools/APITools";
-import { Vacancy } from "../../types";
+import { FilterParamsType, Vacancy } from "../../types";
 import { Dispatch } from "redux";
 
 type FavoriteVacanciesStateType = {
     [id: number]: Vacancy
+}
+
+const defaultFilterParams: FilterParamsType = {
+    keyword: '',
+    payment_from: '',
+    payment_to: '',
+    category: ''
 }
 
 const initialState: Vacancy[] = []
@@ -18,7 +25,7 @@ export const vacanciesReducer = (state = initialState, action: VacanciesActionTy
                     ? v.isFavorite = true
                     : v.isFavorite = false
             })
-            return [ ...state, ...action.vacansies ]
+            return [ ...action.vacansies ]
         case "UPDATE-FAVORITE-STATUS":
             return state.map(v =>
                 v.id === action.id
@@ -47,8 +54,8 @@ export const updateVacansyFavoriteStatusAC = (id: number, isFavorite: boolean) =
     } as const
 }
 
-export const getVacancies = (favoriteVacancies: Vacancy[]) => async (dispatch: Dispatch) => {
-    const res = await vacancyAPI.getVacancies()
+export const getVacancies = (favoriteVacancies: Vacancy[], params = defaultFilterParams) => async (dispatch: Dispatch) => {
+    const res = await vacancyAPI.getVacancies(params)
     const vacancies = res.data.objects.map(v => ({
         isFavorite: false,
         id :v.id,

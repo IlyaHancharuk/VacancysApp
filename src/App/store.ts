@@ -6,19 +6,24 @@ import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { VacanciesActionType, vacanciesReducer } from './reducers/vacanciesReducer';
 import { FavoriteActionType, favoriteReducer } from './reducers/favoritesReducer';
-import { categoriesReducer } from './reducers/categoriesReducer';
+import { CategoriesActionType, categoriesReducer } from './reducers/categoriesReducer';
+import { FilterParamsActionType, filterParamsReducer } from './reducers/filterParamsReducer';
 
 const rootReducer = combineReducers({
     vacancies: vacanciesReducer,
     favorite: favoriteReducer,
     categories: categoriesReducer,
+    filterParams: filterParamsReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type ReduxStoreType = typeof store
-export type AllActionsType = VacanciesActionType | FavoriteActionType
+export type AllActionsType = VacanciesActionType
+    | FavoriteActionType
+    | CategoriesActionType
+    | FilterParamsActionType
 export type AppThunkDispatch = ThunkDispatch<AppRootStateType, unknown, AllActionsType>
 
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>()

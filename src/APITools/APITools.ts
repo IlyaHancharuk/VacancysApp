@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, Vacancy } from "../types";
+import { Category, FilterParamsType, Vacancy } from "../types";
 
 type AuthResponseType = {
     access_token: string;
@@ -45,19 +45,7 @@ const instance = axios.create({
     }
 });
 
-type FilterParamsType = {
-    keyword: string
-    payment_from: null | number
-    payment_to: null | number
-    catalogues: null | number
-}
 
-const defaultFilterParams = {
-    keyword: '',
-    payment_from: null,
-    payment_to: null,
-    catalogues: null
-}
 
 export const vacancyAPI = {
     async getAuth() {
@@ -67,9 +55,9 @@ export const vacancyAPI = {
                 { headers: { 'x-secret-key': PASSWORD, } }
             );
     },
-    getVacancies(params: FilterParamsType = defaultFilterParams) {
+    getVacancies(params: FilterParamsType) {
         return instance.get<GetVacanciesResponseType>
-            (`vacancies?published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.catalogues}`)
+            (`vacancies?published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.category}`)
     },
     getCategories() {
         return instance.get<GetCategoriesResponseType>('catalogues')

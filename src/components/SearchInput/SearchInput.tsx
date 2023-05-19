@@ -1,31 +1,32 @@
-import React, { ChangeEvent, useState } from 'react'
-
+import React, { ChangeEvent, FC } from 'react'
 import { TextInput } from '@mantine/core';
 import search from './../../assets/svg/search.svg'
 import Button from '../Buttons/Button/Button';
+import { useAppDispatch, useAppSelector } from '../../App/store';
+import { setSearchParamsAC } from '../../App/reducers/filterParamsReducer';
 
-export const SearchInput = () => {
-    const [value, setValue] = useState('')
+type SearchInputPropsType = {
+    onSubmitCallback(): void
+}
+
+export const SearchInput: FC<SearchInputPropsType> = ({ onSubmitCallback }) => {
+    const dispatch = useAppDispatch()
+    const filterParams = useAppSelector(state => state.filterParams)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-    }
-
-    const startSearch = () => {
-        console.log(value)
-        setValue('')
+        dispatch(setSearchParamsAC(e.currentTarget.value))
     }
 
     const icon = <img src={search} alt="search-icon" />
     return (
         <TextInput
-            value={value}
+            value={filterParams.keyword}
             onChange={onChangeHandler}
             icon={icon}
             placeholder="Введите название вакансии"
             radius={'8px'}
             size='lg'
-            rightSection={<Button size='s' children={'Поиск'} onClick={startSearch} />}
+            rightSection={<Button size='s' children={'Поиск'} onClick={onSubmitCallback} />}
             rightSectionWidth={83}
             styles={{
                 rightSection: {

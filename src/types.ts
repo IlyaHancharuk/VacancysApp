@@ -21,6 +21,10 @@ export type FiltersFormValuesType = {
     category: string
 }
 
+export type FilterParamsType = FiltersFormValuesType & {
+    keyword: string
+}
+
 export type Category = {
     key: number,
     title_rus: string
