@@ -15,6 +15,12 @@ export type GetVacanciesResponseType = {
 
 export type GetCategoriesResponseType = Category[]
 
+export type ServerError = {
+    code: number
+    error: string
+    message: string
+}
+
 export type Vacancy = {
     isFavorite: boolean
     id: number,

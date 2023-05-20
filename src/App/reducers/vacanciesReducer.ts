@@ -2,7 +2,7 @@ import { vacancyAPI } from "../../APITools/APITools";
 import { FilterParamsType, Vacancy } from "../../types";
 import { Dispatch } from "redux";
 import { setAppStatusAC } from "./appReducer";
-import { handleError } from "../../utils/errorUtils";
+import { handleError, handleServerError } from "../../utils/errorUtils";
 
 type FavoriteVacanciesStateType = {
     [id: number]: Vacancy
@@ -82,21 +82,26 @@ export const getVacancies = (
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await vacancyAPI.getVacancies(params, page, count)
-        const vacancies = res.data.objects.map(v => ({
-            isFavorite: false,
-            id :v.id,
-            payment_from: v.payment_from,
-            payment_to: v.payment_to,
-            currency: v.currency,
-            profession: v.profession,
-            type_of_work: v.type_of_work,
-            town: v.town,
-            firm_name: v.firm_name,
-            vacancyRichText: v.vacancyRichText
-        }))
-        const total = res.data.total
-        dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
-        dispatch(setAppStatusAC('successed'))
+        if (res.status === 200) {
+            const vacancies = res.data.objects.map(v => ({
+                isFavorite: false,
+                id :v.id,
+                payment_from: v.payment_from,
+                payment_to: v.payment_to,
+                currency: v.currency,
+                profession: v.profession,
+                type_of_work: v.type_of_work,
+                town: v.town,
+                firm_name: v.firm_name,
+                vacancyRichText: v.vacancyRichText
+            }))
+            const total = res.data.total
+            dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
+            dispatch(setAppStatusAC('successed'))
+        } else {
+            handleServerError(res)
+            dispatch(setAppStatusAC('failed'))
+        }
     } catch (error) {
         handleError(error, 'Ошибка запроса')
         dispatch(setAppStatusAC('failed'))
