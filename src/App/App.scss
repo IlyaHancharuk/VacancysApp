@@ -46,6 +46,7 @@
 }
 
 .vacancies__list {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -84,6 +85,7 @@
 }
 
 .favorite__list {
+    position: relative;
     max-width: 773px;
     width: 100%;
     display: flex;

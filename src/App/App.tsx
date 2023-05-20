@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from './store';
 import { getVacancies } from './reducers/vacanciesReducer';
 import { getFavoriteVacancies } from './reducers/favoritesReducer';
 import { getCaregories } from './reducers/categoriesReducer';
+import { LoadingOverlay } from '@mantine/core';
 
 const App = () => {
     const dispatch = useAppDispatch()
@@ -25,7 +26,9 @@ const App = () => {
 
     if (vacancies.length === 0) {
         return (
-            <h1>Loading...</h1>
+            <LoadingOverlay visible={true} overlayBlur={2}
+                            loaderProps={{ size: 'lg', color: '#5E96FC' }}
+            />
         )
     }
 

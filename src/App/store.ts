@@ -8,12 +8,14 @@ import { VacanciesActionType, vacanciesReducer } from './reducers/vacanciesReduc
 import { FavoriteActionType, favoriteReducer } from './reducers/favoritesReducer';
 import { CategoriesActionType, categoriesReducer } from './reducers/categoriesReducer';
 import { FilterParamsActionType, filterParamsReducer } from './reducers/filterParamsReducer';
+import { AppActionsType, appReducer } from './reducers/appReducer';
 
 const rootReducer = combineReducers({
     vacancies: vacanciesReducer,
     favorite: favoriteReducer,
     categories: categoriesReducer,
-    filterParams: filterParamsReducer
+    filterParams: filterParamsReducer,
+    app: appReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -24,6 +26,8 @@ export type AllActionsType = VacanciesActionType
     | FavoriteActionType
     | CategoriesActionType
     | FilterParamsActionType
+    | AppActionsType
+
 export type AppThunkDispatch = ThunkDispatch<AppRootStateType, unknown, AllActionsType>
 
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>()

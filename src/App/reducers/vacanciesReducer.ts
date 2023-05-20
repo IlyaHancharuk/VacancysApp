@@ -1,6 +1,7 @@
 import { vacancyAPI } from "../../APITools/APITools";
 import { FilterParamsType, Vacancy } from "../../types";
 import { Dispatch } from "redux";
+import { setAppStatusAC } from "./appReducer";
 
 type FavoriteVacanciesStateType = {
     [id: number]: Vacancy
@@ -77,6 +78,7 @@ export const getVacancies = (
     params = defaultFilterParams,
     page = 1, count = 4
 ) => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     const res = await vacancyAPI.getVacancies(params, page, count)
     const vacancies = res.data.objects.map(v => ({
         isFavorite: false,
@@ -92,4 +94,5 @@ export const getVacancies = (
     }))
     const total = res.data.total
     dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
+    dispatch(setAppStatusAC('successed'))
 }
