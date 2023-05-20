@@ -7,9 +7,10 @@ import { setSearchParamsAC } from '../../App/reducers/filterParamsReducer';
 
 type SearchInputPropsType = {
     onSubmitCallback(): void
+    disabled: boolean
 }
 
-export const SearchInput: FC<SearchInputPropsType> = ({ onSubmitCallback }) => {
+export const SearchInput: FC<SearchInputPropsType> = ({ onSubmitCallback, disabled }) => {
     const dispatch = useAppDispatch()
     const filterParams = useAppSelector(state => state.filterParams)
 
@@ -22,10 +23,11 @@ export const SearchInput: FC<SearchInputPropsType> = ({ onSubmitCallback }) => {
         <TextInput
             value={filterParams.keyword}
             onChange={onChangeHandler}
+            disabled={disabled}
             icon={icon}
             placeholder="Введите название вакансии"
             radius={'8px'}
-            rightSection={<Button size='s' children={'Поиск'} onClick={onSubmitCallback} />}
+            rightSection={<Button disabled={disabled} size='s' children={'Поиск'} onClick={onSubmitCallback} />}
             rightSectionWidth={83}
             styles={{
                 rightSection: { marginRight: '12px' },

@@ -8,14 +8,19 @@ type SalaryInputPropsType = {
     placeholder: string
     form: UseFormReturnType<FiltersFormValuesType>
     formValue: string
+    disabled: boolean
 }
 
-export const SalaryInput: FC<SalaryInputPropsType> = ({ placeholder, form, formValue }) => {
+export const SalaryInput: FC<SalaryInputPropsType> = ({
+    placeholder, disabled,
+    form, formValue,
+}) => {
     const handlers = useRef<NumberInputHandlers>();
 
     return (
         <div>
             <NumberInput {...form.getInputProps(formValue)}
+                         disabled={disabled}
                          type='number'
                          hideControls
                          handlersRef={handlers}

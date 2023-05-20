@@ -14,6 +14,7 @@ export const FavoritesPage: FC<FavoritesPagePropsType> = (props) => {
     const favoriteToView = useAppSelector(state => state.favorite.favoriteToView())
     const status = useAppSelector(state => state.app.status)
 
+    const disabled = status === 'loading' ? true : false
     const favotiteList = favoriteToView.map(fv => (
         <VacanciesItem withLink vacancy={fv} key={fv.id} />
     ))
@@ -36,17 +37,18 @@ export const FavoritesPage: FC<FavoritesPagePropsType> = (props) => {
                     totalPage > 1 &&
                     <div className='pagination'>
                         <Pagination onChange={onPaginateCallback}
-                            total={totalPage}
-                            defaultValue={currentPage}
-                            radius={4}
-                            spacing={8}
-                            styles={{
-                                control: {
-                                    border: `1px solid #D5D6DC`,
-                                    '&[data-active]': { backgroundColor: '#5E96FC', border: 'none' },
-                                    ':disabled': { color: '#D5D6DC' }
-                                },
-                            }}
+                                    total={totalPage}
+                                    defaultValue={currentPage}
+                                    disabled={disabled}
+                                    radius={4}
+                                    spacing={8}
+                                    styles={{
+                                        control: {
+                                            border: `1px solid #D5D6DC`,
+                                            '&[data-active]': { backgroundColor: '#5E96FC', border: 'none' },
+                                            ':disabled': { color: '#D5D6DC' }
+                                        },
+                                    }}
                         />
                     </div>
                 }

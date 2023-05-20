@@ -19,6 +19,9 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
     const filterParams = useAppSelector(state => state.filterParams)
     const status = useAppSelector(state => state.app.status)
 
+    const disabled = status === 'loading' ? true : false
+    const pageCount = Math.ceil(total / MAX_VACANCIES_IN_PAGE)
+
     const selectItems: SelectItem[] = categories.map(c => ({
         value: c.key.toString(),
         label: c.title_rus.length < MAX_LENGTH_SELECT_ITEM_LEBEL
@@ -26,7 +29,6 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
             : c.title_trimmed 
     }))
 
-    const pageCount = Math.ceil(total / MAX_VACANCIES_IN_PAGE)
     const vacansiesList = vacancies.map(v => (
         <VacanciesItem key={v.id} vacancy={v} withLink/>
     ))
@@ -43,10 +45,10 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
 
     return (
         <div className='vacancies-container'>
-            <Filters onSubmitCallback={onSubmitFiltersCallback} selectItems={selectItems} />
+            <Filters disabled={disabled} onSubmitCallback={onSubmitFiltersCallback} selectItems={selectItems} />
             <div className='vacancies'>
                 <div className='vacancies__search-input'>
-                    <SearchInput onSubmitCallback={onSubmitCallback} />
+                    <SearchInput disabled={disabled} onSubmitCallback={onSubmitCallback} />
                 </div>
 
                 <div className='vacancies__list'>
@@ -61,6 +63,7 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
                     <div className='pagination'>
                         <Pagination onChange={onPaginateCallback}
                                     total={pageCount}
+                                    disabled={disabled}
                                     radius={4}
                                     spacing={8}
                                     styles={{

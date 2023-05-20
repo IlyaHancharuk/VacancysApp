@@ -13,9 +13,10 @@ import { setFormParamsAC } from "../../App/reducers/filterParamsReducer";
 type FiltersPropsType = {
     selectItems: SelectItem[]
     onSubmitCallback(filterValues: FiltersFormValuesType): void
+    disabled: boolean
 }
 
-const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback }) => {
+const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback, disabled }) => {
     const initialValues: FiltersFormValuesType = {
         category: '',
         payment_from: '',
@@ -51,15 +52,15 @@ const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback }) => {
                 </div>
                 <h5 className='filters__subtitle'>Отрасль</h5>
                 <div className='filters__category-select'>
-                    <SelectComponent form={form} formValue="category" items={selectItems} />
+                    <SelectComponent disabled={disabled} form={form} formValue="category" items={selectItems} />
                 </div>
                 <h5 className='filters__subtitle'>Оклад</h5>
                 <div className='filters__salary-inputs'>
-                    <SalaryInput placeholder='От' form={form} formValue="payment_from" />
-                    <SalaryInput placeholder='До' form={form} formValue="payment_to" />
+                    <SalaryInput disabled={disabled} placeholder='От' form={form} formValue="payment_from" />
+                    <SalaryInput disabled={disabled} placeholder='До' form={form} formValue="payment_to" />
                 </div>
                 <div className='filters__submit-button'>
-                    <Button type="submit">Применить</Button>
+                    <Button disabled={disabled} type="submit">Применить</Button>
                 </div>
             </form>
         </div>

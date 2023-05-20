@@ -9,9 +9,13 @@ type SelectComponentPropsType = {
     items: SelectItem[]
     form: UseFormReturnType<FiltersFormValuesType>
     formValue: string
+    disabled: boolean
 }
 
-export const SelectComponent: FC<SelectComponentPropsType> = ({ items, form, formValue }) => {
+export const SelectComponent: FC<SelectComponentPropsType> = ({
+    items, form, formValue,
+    disabled
+}) => {
     const [open, setOpen] = useState(false)
     const onClickHandler = () => {
         setOpen(!open)
@@ -31,6 +35,7 @@ export const SelectComponent: FC<SelectComponentPropsType> = ({ items, form, for
         <div className='select-component'>
             <Select data={items}
                     {...form.getInputProps(formValue)}
+                    disabled={disabled}
                     placeholder='Выберите отрасль'
                     rightSection={<SelectIcon open={open} />}
                     rightSectionWidth={16}
