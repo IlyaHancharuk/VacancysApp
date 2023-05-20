@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import { updateVacansyFavoriteStatusAC } from "./vacanciesReducer";
 import { favoriteVacanciesAPI } from "../../APITools/APITools";
 import { setAppStatusAC } from "./appReducer";
+import { handleError } from "../../utils/errorUtils";
 
 type FavoriteStateType = {
     allFavorite: Vacancy[]
@@ -85,10 +86,17 @@ export const changeFavoritePageAC = (page: number) => {
 
 export const getFavoriteVacancies = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    const favoriteVacancies = favoriteVacanciesAPI.getFavoriteVacancies()
-    if(favoriteVacancies) {
-        dispatch(setFavoriteVacanciesAC(favoriteVacancies))
-        dispatch(setAppStatusAC('successed'))
+    try {
+        const favoriteVacancies = favoriteVacanciesAPI.getFavoriteVacancies()
+            if(favoriteVacancies) {
+                dispatch(setFavoriteVacanciesAC(favoriteVacancies))
+                dispatch(setAppStatusAC('successed'))
+            } else {
+                dispatch(setAppStatusAC('failed'))
+            }
+    } catch (error) {
+        handleError(error, dispatch)
+        dispatch(setAppStatusAC('failed'))
     }
 }
 
@@ -96,18 +104,28 @@ export const addFavoriteVacancy = (vacancy: Vacancy) => (
     dispatch: Dispatch,
 ) => {
     dispatch(setAppStatusAC('loading'))
-    favoriteVacanciesAPI.addFavoriteVacancies(vacancy)
-    dispatch(updateVacansyFavoriteStatusAC(vacancy.id, true))
-    dispatch(addFavoriteVacancyAC(vacancy))
-    dispatch(setAppStatusAC('successed'))
+    try {
+        favoriteVacanciesAPI.addFavoriteVacancies(vacancy)
+        dispatch(updateVacansyFavoriteStatusAC(vacancy.id, true))
+        dispatch(addFavoriteVacancyAC(vacancy))
+        dispatch(setAppStatusAC('successed'))
+    } catch (error) {
+        handleError(error, dispatch)
+        dispatch(setAppStatusAC('failed'))
+    }
 }
 
 export const removeFavoriteVacancy = (vacancyId: number) => (
     dispatch: Dispatch,
 ) => {
     dispatch(setAppStatusAC('loading'))
-    favoriteVacanciesAPI.removeFavoriteVacancies(vacancyId)
-    dispatch(updateVacansyFavoriteStatusAC(vacancyId, false))
-    dispatch(removeFavoriteVacancyAC(vacancyId))
-    dispatch(setAppStatusAC('successed'))
+    try {
+        favoriteVacanciesAPI.removeFavoriteVacancies(vacancyId)
+        dispatch(updateVacansyFavoriteStatusAC(vacancyId, false))
+        dispatch(removeFavoriteVacancyAC(vacancyId))
+        dispatch(setAppStatusAC('successed'))
+    } catch (error) {
+        handleError(error, dispatch)
+        dispatch(setAppStatusAC('failed'))
+    }
 }

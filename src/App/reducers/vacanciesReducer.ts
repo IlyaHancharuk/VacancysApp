@@ -2,6 +2,7 @@ import { vacancyAPI } from "../../APITools/APITools";
 import { FilterParamsType, Vacancy } from "../../types";
 import { Dispatch } from "redux";
 import { setAppStatusAC } from "./appReducer";
+import { handleError } from "../../utils/errorUtils";
 
 type FavoriteVacanciesStateType = {
     [id: number]: Vacancy
@@ -79,20 +80,25 @@ export const getVacancies = (
     page = 1, count = 4
 ) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    const res = await vacancyAPI.getVacancies(params, page, count)
-    const vacancies = res.data.objects.map(v => ({
-        isFavorite: false,
-        id :v.id,
-        payment_from: v.payment_from,
-        payment_to: v.payment_to,
-        currency: v.currency,
-        profession: v.profession,
-        type_of_work: v.type_of_work,
-        town: v.town,
-        firm_name: v.firm_name,
-        vacancyRichText: v.vacancyRichText
-    }))
-    const total = res.data.total
-    dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
-    dispatch(setAppStatusAC('successed'))
+    try {
+        const res = await vacancyAPI.getVacancies(params, page, count)
+        const vacancies = res.data.objects.map(v => ({
+            isFavorite: false,
+            id :v.id,
+            payment_from: v.payment_from,
+            payment_to: v.payment_to,
+            currency: v.currency,
+            profession: v.profession,
+            type_of_work: v.type_of_work,
+            town: v.town,
+            firm_name: v.firm_name,
+            vacancyRichText: v.vacancyRichText
+        }))
+        const total = res.data.total
+        dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
+        dispatch(setAppStatusAC('successed'))
+    } catch (error) {
+        handleError(error, dispatch)
+        dispatch(setAppStatusAC('failed'))
+    }
 }
