@@ -48,19 +48,40 @@ const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback, disabled
             >
                 <div className='filters__top-block'>
                     <h3 className='filters__title'>Фильтры</h3>
-                    <TextButton disabled={resetButtonDisabled} type="reset" innerText='Сбросить все' />
+                    <TextButton disabled={resetButtonDisabled}
+                                type="reset"
+                                innerText='Сбросить все'
+                    />
                 </div>
                 <h5 className='filters__subtitle'>Отрасль</h5>
                 <div className='filters__category-select'>
-                    <SelectComponent disabled={disabled} form={form} formValue="category" items={selectItems} />
+                    <SelectComponent disabled={disabled}
+                                     form={form}
+                                     formValue="category"
+                                     items={selectItems}
+                    />
                 </div>
                 <h5 className='filters__subtitle'>Оклад</h5>
                 <div className='filters__salary-inputs'>
-                    <SalaryInput disabled={disabled} placeholder='От' form={form} formValue="payment_from" />
-                    <SalaryInput disabled={disabled} placeholder='До' form={form} formValue="payment_to" />
+                    <SalaryInput dataElem="salary-from-input"
+                                 disabled={disabled}
+                                 placeholder='От'
+                                 form={form}
+                                 formValue="payment_from"
+                    />
+                    <SalaryInput dataElem="salary-to-input"
+                                 disabled={disabled}
+                                 placeholder='До'
+                                 form={form}
+                                 formValue="payment_to"
+                    />
                 </div>
                 <div className='filters__submit-button'>
-                    <Button disabled={disabled} type="submit">Применить</Button>
+                    <Button data-elem="search-button"
+                            disabled={disabled}
+                            type="submit">
+                        Применить
+                    </Button>
                 </div>
             </form>
         </div>

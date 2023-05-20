@@ -33,7 +33,8 @@ export const SelectComponent: FC<SelectComponentPropsType> = ({
     }
     return (
         <div className='select-component'>
-            <Select data={items}
+            <Select data-elem="industry-select"
+                    data={items}
                     {...form.getInputProps(formValue)}
                     disabled={disabled}
                     placeholder='Выберите отрасль'

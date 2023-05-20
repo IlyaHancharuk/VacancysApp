@@ -21,13 +21,20 @@ export const SearchInput: FC<SearchInputPropsType> = ({ onSubmitCallback, disabl
     const icon = <img src={search} alt="search-icon" />
     return (
         <TextInput
+            data-elem="search-input"
             value={filterParams.keyword}
             onChange={onChangeHandler}
             disabled={disabled}
             icon={icon}
             placeholder="Введите название вакансии"
             radius={'8px'}
-            rightSection={<Button disabled={disabled} size='s' children={'Поиск'} onClick={onSubmitCallback} />}
+            rightSection={
+                <Button data-elem="search-button"
+                        disabled={disabled}
+                        size='s' children={'Поиск'}
+                        onClick={onSubmitCallback}
+                />
+            }
             rightSectionWidth={83}
             styles={{
                 rightSection: { marginRight: '12px' },

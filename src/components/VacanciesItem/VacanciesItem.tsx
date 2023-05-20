@@ -30,7 +30,7 @@ export const VacanciesItem: FC<VacanciesItemPropsType> = ({
         : <div className='item__title'>{vacancy.profession}</div>
 
     return (
-        <div className='vacancies__item _card'>
+        <div className='vacancies__item _card' data-elem={`vacancy-${vacancy.id}`}>
             {title}
             <div className='item__description'>
                 <span className='salary'>{salary}</span>
