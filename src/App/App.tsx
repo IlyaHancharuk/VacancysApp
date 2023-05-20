@@ -11,12 +11,14 @@ import { getVacancies } from './reducers/vacanciesReducer';
 import { getFavoriteVacancies } from './reducers/favoritesReducer';
 import { getCaregories } from './reducers/categoriesReducer';
 import { LoadingOverlay } from '@mantine/core';
+import { getAuth } from './reducers/appReducer';
 
 const App = () => {
     const dispatch = useAppDispatch()
     const vacancies = useAppSelector(state => state.vacancies.vacancies)
 
     useEffect(() => {
+        dispatch(getAuth())
         let favoriteVacanciesResp = favoriteVacanciesAPI.getFavoriteVacancies()
         const favoriteVacancies = favoriteVacanciesResp || []
         dispatch(getVacancies(favoriteVacancies))

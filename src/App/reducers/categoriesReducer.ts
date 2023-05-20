@@ -35,7 +35,7 @@ export const getCaregories = () => async (dispatch: Dispatch) => {
         dispatch(setCategoriesAC(categories))
         dispatch(setAppStatusAC('successed'))
     } catch (error) {
-        handleError(error, dispatch)
+        handleError(error, 'Ошибка запроса')
         dispatch(setAppStatusAC('failed'))
     }
 }

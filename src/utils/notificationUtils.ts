@@ -1,12 +1,12 @@
 import { notifications } from "@mantine/notifications";
 
-export const showErrorNotification = (errorMessage: string | null) => {
+export const showErrorNotification = (errorMessage: string | null, errorTitle = 'Что-то не так...') => {
     if (errorMessage) {
         notifications.show({
             withCloseButton: true,
             autoClose: 5000,
-            title: "Что-то не так...",
-            message: `Текст ошибки: ${errorMessage}`,
+            title: errorTitle,
+            message: errorMessage,
             color: 'red',
             style: { backgroundColor: 'white' },
             sx: { backgroundColor: 'red' },

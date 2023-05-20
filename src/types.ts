@@ -1,3 +1,20 @@
+export type AuthResponseType = {
+    access_token: string;
+    expires_in: number;
+    refresh_token: string;
+    reg_user_resumes_count: number;
+    token_type: string;
+    ttl: number;
+}
+
+export type GetVacanciesResponseType = {
+    objects: Vacancy[]
+    total: number,
+    more: boolean
+}
+
+export type GetCategoriesResponseType = Category[]
+
 export type Vacancy = {
     isFavorite: boolean
     id: number,

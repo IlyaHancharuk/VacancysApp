@@ -1,12 +1,11 @@
-import { Dispatch } from "redux";
 import { isAxiosError } from "axios"
 import { showErrorNotification } from "./notificationUtils";
 
-export const handleError = (error: unknown, dispatch: Dispatch) => {
+export const handleError = (error: unknown, errorTitle = 'Что-то не так...') => {
     if (isAxiosError(error) || error instanceof Error) {
-        showErrorNotification(error.message)
+        showErrorNotification(error.message, errorTitle)
     } else {
-        showErrorNotification('Some error occurred')
+        showErrorNotification('Неизвестная ошибка')
         console.error(error)
     }
 }

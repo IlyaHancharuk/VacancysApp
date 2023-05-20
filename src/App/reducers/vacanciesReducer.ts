@@ -98,7 +98,7 @@ export const getVacancies = (
         dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
         dispatch(setAppStatusAC('successed'))
     } catch (error) {
-        handleError(error, dispatch)
+        handleError(error, 'Ошибка запроса')
         dispatch(setAppStatusAC('failed'))
     }
 }

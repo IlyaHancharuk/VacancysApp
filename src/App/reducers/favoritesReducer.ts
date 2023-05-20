@@ -95,7 +95,7 @@ export const getFavoriteVacancies = () => (dispatch: Dispatch) => {
                 dispatch(setAppStatusAC('failed'))
             }
     } catch (error) {
-        handleError(error, dispatch)
+        handleError(error, 'Ошибка запроса')
         dispatch(setAppStatusAC('failed'))
     }
 }
@@ -110,7 +110,7 @@ export const addFavoriteVacancy = (vacancy: Vacancy) => (
         dispatch(addFavoriteVacancyAC(vacancy))
         dispatch(setAppStatusAC('successed'))
     } catch (error) {
-        handleError(error, dispatch)
+        handleError(error, 'Ошибка запроса')
         dispatch(setAppStatusAC('failed'))
     }
 }
@@ -125,7 +125,7 @@ export const removeFavoriteVacancy = (vacancyId: number) => (
         dispatch(removeFavoriteVacancyAC(vacancyId))
         dispatch(setAppStatusAC('successed'))
     } catch (error) {
-        handleError(error, dispatch)
+        handleError(error, 'Ошибка запроса')
         dispatch(setAppStatusAC('failed'))
     }
 }
