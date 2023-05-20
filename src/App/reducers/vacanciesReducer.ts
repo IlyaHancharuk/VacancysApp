@@ -6,6 +6,12 @@ type FavoriteVacanciesStateType = {
     [id: number]: Vacancy
 }
 
+type VacansiesStateType = {
+    vacancies: Vacancy[]
+    MAX_VACANCIES_IN_PAGE: number
+    total: number
+}
+const MAX_VACANCIES_COUNT = 500
 const defaultFilterParams: FilterParamsType = {
     keyword: '',
     payment_from: '',
@@ -13,9 +19,13 @@ const defaultFilterParams: FilterParamsType = {
     category: ''
 }
 
-const initialState: Vacancy[] = []
+const initialState: VacansiesStateType = {
+    vacancies: [],
+    MAX_VACANCIES_IN_PAGE: 4,
+    total: 0
+}
 
-export const vacanciesReducer = (state = initialState, action: VacanciesActionType): Vacancy[] => {
+export const vacanciesReducer = (state = initialState, action: VacanciesActionType): VacansiesStateType => {
     switch (action.type) {
         case "SET-VACANCIES":
             const obj: FavoriteVacanciesStateType = {}
@@ -25,12 +35,19 @@ export const vacanciesReducer = (state = initialState, action: VacanciesActionTy
                     ? v.isFavorite = true
                     : v.isFavorite = false
             })
-            return [ ...action.vacansies ]
+            return  {
+                ...state,
+                vacancies: [...action.vacansies],
+                total: action.total < MAX_VACANCIES_COUNT ? action.total : MAX_VACANCIES_COUNT
+            }
         case "UPDATE-FAVORITE-STATUS":
-            return state.map(v =>
-                v.id === action.id
-                    ? {...v, isFavorite: action.isFavorite}
-                    : v)
+            return {
+                ...state, 
+                vacancies: state.vacancies.map(v =>
+                    v.id === action.id
+                        ? {...v, isFavorite: action.isFavorite}
+                        : v)
+            }
         default:
             return state
     }
@@ -39,10 +56,11 @@ export const vacanciesReducer = (state = initialState, action: VacanciesActionTy
 export type VacanciesActionType = ReturnType<typeof setVacansiesAC>
     | ReturnType<typeof updateVacansyFavoriteStatusAC>
 
-export const setVacansiesAC = (vacansies: Vacancy[], favoriteVacancies: Vacancy[]) => {
+export const setVacansiesAC = (vacansies: Vacancy[], total: number, favoriteVacancies: Vacancy[]) => {
     return {
         type: "SET-VACANCIES",
         vacansies,
+        total,
         favoriteVacancies
     } as const
 }
@@ -54,8 +72,12 @@ export const updateVacansyFavoriteStatusAC = (id: number, isFavorite: boolean) =
     } as const
 }
 
-export const getVacancies = (favoriteVacancies: Vacancy[], params = defaultFilterParams) => async (dispatch: Dispatch) => {
-    const res = await vacancyAPI.getVacancies(params)
+export const getVacancies = (
+    favoriteVacancies: Vacancy[],
+    params = defaultFilterParams,
+    page = 1, count = 4
+) => async (dispatch: Dispatch) => {
+    const res = await vacancyAPI.getVacancies(params, page, count)
     const vacancies = res.data.objects.map(v => ({
         isFavorite: false,
         id :v.id,
@@ -68,5 +90,6 @@ export const getVacancies = (favoriteVacancies: Vacancy[], params = defaultFilte
         firm_name: v.firm_name,
         vacancyRichText: v.vacancyRichText
     }))
-    dispatch(setVacansiesAC(vacancies, favoriteVacancies))
+    const total = res.data.total
+    dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
 }

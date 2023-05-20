@@ -55,9 +55,9 @@ export const vacancyAPI = {
                 { headers: { 'x-secret-key': PASSWORD, } }
             );
     },
-    getVacancies(params: FilterParamsType) {
+    getVacancies(params: FilterParamsType, page = 1, count = 4) {
         return instance.get<GetVacanciesResponseType>
-            (`vacancies?published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.category}`)
+            (`vacancies?page=${page}&count=${count}&published=1&keyword=${params.keyword}&payment_from=${params.payment_from}&payment_to=${params.payment_to}&catalogues=${params.category}`)
     },
     getCategories() {
         return instance.get<GetCategoriesResponseType>('catalogues')

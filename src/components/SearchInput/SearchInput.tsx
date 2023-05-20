@@ -25,13 +25,11 @@ export const SearchInput: FC<SearchInputPropsType> = ({ onSubmitCallback }) => {
             icon={icon}
             placeholder="Введите название вакансии"
             radius={'8px'}
-            size='lg'
             rightSection={<Button size='s' children={'Поиск'} onClick={onSubmitCallback} />}
             rightSectionWidth={83}
             styles={{
-                rightSection: {
-                    marginRight: '12px'
-                }
+                rightSection: { marginRight: '12px' },
+                input: { height: '48px' }
             }}
         />
     )

@@ -1,19 +1,52 @@
 import { Vacancy } from "../../types";
 import { Dispatch } from "redux";
 import { updateVacansyFavoriteStatusAC } from "./vacanciesReducer";
-import { AppRootStateType } from "../store";
 import { favoriteVacanciesAPI } from "../../APITools/APITools";
 
-const initialState: Vacancy[] = []
+type FavoriteStateType = {
+    allFavorite: Vacancy[]
+    MAX_VACANCIES_IN_PAGE: number
+    currentPage: number
+    favoriteToView(): Vacancy[]
+    totalPage(): number
+}
 
-export const favoriteReducer = (state = initialState, action: FavoriteActionType): Vacancy[] => {
+const initialState: FavoriteStateType = {
+    allFavorite: [],
+    MAX_VACANCIES_IN_PAGE: 4,
+    currentPage: 1,
+    favoriteToView() {
+        const endIndex = this.currentPage * this.MAX_VACANCIES_IN_PAGE
+        const startIndex = endIndex - this.MAX_VACANCIES_IN_PAGE
+        return this.allFavorite.slice(startIndex, endIndex)
+    },
+    totalPage() {
+        return Math.ceil(this.allFavorite.length / this.MAX_VACANCIES_IN_PAGE) 
+    }
+}
+
+export const favoriteReducer = (state = initialState, action: FavoriteActionType): FavoriteStateType => {
     switch (action.type) {
         case "SET-FAVORITE-VACANCIES":
-            return [ ...state, ...action.vacancies ]
+            return {
+                ...state,
+                allFavorite: [ ...state.allFavorite, ...action.vacancies ],
+            }
         case "ADD-FAVORITE-VACANCY":
-            return [ { ...action.vacancy, isFavorite: true }, ...state ]
+            return {
+                ...state,
+                allFavorite: [{ ...action.vacancy, isFavorite: true }, ...state.allFavorite ],
+            }
         case "REMOVE-FAVORITE-VACANCY":
-            return state.filter(v => v.id !== action.id)
+            return {
+                ...state,
+                allFavorite: state.allFavorite.filter(v => v.id !== action.id),
+            }
+        case "CHANGE-FAVORITE-PAGE":
+            return {
+                ...state,
+                currentPage: action.page
+            }
         default:
             return state
     }
@@ -22,6 +55,7 @@ export const favoriteReducer = (state = initialState, action: FavoriteActionType
 export type FavoriteActionType = ReturnType<typeof setFavoriteVacanciesAC>
     | ReturnType<typeof addFavoriteVacancyAC>
     | ReturnType<typeof removeFavoriteVacancyAC>
+    | ReturnType<typeof changeFavoritePageAC>
 
 export const setFavoriteVacanciesAC = (vacancies: Vacancy[]) => {
     return {
@@ -41,6 +75,12 @@ export const removeFavoriteVacancyAC = (id: number) => {
         id
     } as const
 }
+export const changeFavoritePageAC = (page: number) => {
+    return {
+        type: "CHANGE-FAVORITE-PAGE",
+        page
+    } as const
+}
 
 export const getFavoriteVacancies = () => (dispatch: Dispatch) => {
     const favoriteVacancies = favoriteVacanciesAPI.getFavoriteVacancies()
@@ -51,7 +91,6 @@ export const getFavoriteVacancies = () => (dispatch: Dispatch) => {
 
 export const addFavoriteVacancy = (vacancy: Vacancy) => (
     dispatch: Dispatch,
-    getState: () => AppRootStateType
 ) => {
     favoriteVacanciesAPI.addFavoriteVacancies(vacancy)
     dispatch(updateVacansyFavoriteStatusAC(vacancy.id, true))
@@ -60,14 +99,8 @@ export const addFavoriteVacancy = (vacancy: Vacancy) => (
 
 export const removeFavoriteVacancy = (vacancyId: number) => (
     dispatch: Dispatch,
-    getState: () => AppRootStateType
 ) => {
     favoriteVacanciesAPI.removeFavoriteVacancies(vacancyId)
     dispatch(updateVacansyFavoriteStatusAC(vacancyId, false))
     dispatch(removeFavoriteVacancyAC(vacancyId))
 }
-
-
-
-
-

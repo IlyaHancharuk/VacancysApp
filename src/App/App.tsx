@@ -13,7 +13,7 @@ import { getCaregories } from './reducers/categoriesReducer';
 
 const App = () => {
     const dispatch = useAppDispatch()
-    const vacancies = useAppSelector(state => state.vacancies)
+    const vacancies = useAppSelector(state => state.vacancies.vacancies)
 
     useEffect(() => {
         let favoriteVacanciesResp = favoriteVacanciesAPI.getFavoriteVacancies()
