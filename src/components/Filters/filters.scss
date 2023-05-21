@@ -1,0 +1,52 @@
+.filters {
+    padding: 20px;
+    height: fit-content;
+    background-color: var(--White);
+    border: 1px solid var(--Gray-200);
+    border-radius: 8px;
+}
+
+.filters form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filters__top-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.filters__title, 
+.filters__subtitle {
+    font-family: 'Inter-Bold';
+    margin: 0
+}
+
+.filters__title {
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.filters__subtitle {
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.filters__category-select {
+    margin-bottom: 12px;
+}
+
+.filters__salary-inputs {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filters__submit-button button{
+    width: 100%;
+}

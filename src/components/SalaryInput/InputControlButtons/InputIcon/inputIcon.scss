@@ -1,0 +1,24 @@
+.input-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+}
+
+.input-icon svg {
+    stroke: var(--Gray-500);
+}
+
+.input-icon:hover svg {
+    stroke: var(--Blue-400);
+}
+
+.input-icon.active svg  {
+    stroke: var(--Blue-500-Main);
+}
+
+.input-icon.decrease svg {
+    transform:  scale(1, -1);
+}
+

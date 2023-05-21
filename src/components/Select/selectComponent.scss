@@ -1,0 +1,9 @@
+.select-component {
+    font-family: 'Inter-Regular';
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.mantine-Select-wrapper:hover .select-icon svg {
+    stroke: var(--Blue-400);
+}
