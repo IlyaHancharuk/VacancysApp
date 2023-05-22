@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
-import './header.css'
+import './header.scss'
 
 type HeaderPropsType = {
     
@@ -22,7 +22,7 @@ const Header: FC<HeaderPropsType> = (props) => {
             </NavLink>
         </li>
     ))
-    
+
     return (
         <div className="header-container">
             <header className="header">

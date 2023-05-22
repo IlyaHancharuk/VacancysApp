@@ -11,7 +11,7 @@ type VacansiesPagePropsType = {}
 
 const MAX_LENGTH_SELECT_ITEM_LEBEL = 30
 
-export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
+export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
     const dispatch = useAppDispatch()
     const { vacancies, total, MAX_VACANCIES_IN_PAGE } = useAppSelector(state => state.vacancies)
     const categories = useAppSelector(state => state.categories)
