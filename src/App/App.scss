@@ -115,3 +115,15 @@
 .pagination button:disabled path {
     fill: var(--Gray-300);
 }
+
+@media screen and (max-width: 1026px) {
+    .vacancies-container {
+        gap: 0;
+        grid-template-columns: auto;
+    }
+
+    .vacancies__search-input {
+        display: none;
+    }
+
+}

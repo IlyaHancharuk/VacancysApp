@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { SearchInput } from '../components/SearchInput/SearchInput'
-import Filters from '../components/Filters/Filters'
 import { useAppDispatch, useAppSelector } from '../App/store'
 import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
 import { LoadingOverlay, Pagination, SelectItem } from '@mantine/core'
 import { getVacancies } from '../App/reducers/vacanciesReducer'
 import { FiltersFormValuesType } from '../types'
+import { FiltersContainer } from '../components/FiltersContainer/FiltersContainer'
 
 type VacansiesPagePropsType = {}
 
@@ -33,7 +33,7 @@ export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
         <VacanciesItem key={v.id} vacancy={v} withLink/>
     ))
 
-    const onSubmitCallback = () => {
+    const onSearchSubmitCallback = () => {
         dispatch(getVacancies(favorite, filterParams))
     }
     const onSubmitFiltersCallback = (filterValues: FiltersFormValuesType) => {
@@ -45,10 +45,15 @@ export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
 
     return (
         <div className='vacancies-container'>
-            <Filters disabled={disabled} onSubmitCallback={onSubmitFiltersCallback} selectItems={selectItems} />
+
+            <FiltersContainer disabled={disabled}
+                              onFiltersSubmitCallback={onSubmitFiltersCallback}
+                              onSearchSubmitCallback={onSearchSubmitCallback}
+                              selectItems={selectItems} />
+
             <div className='vacancies'>
                 <div className='vacancies__search-input'>
-                    <SearchInput disabled={disabled} onSubmitCallback={onSubmitCallback} />
+                    <SearchInput disabled={disabled} onSubmitCallback={onSearchSubmitCallback} />
                 </div>
 
                 <div className='vacancies__list'>
@@ -76,7 +81,6 @@ export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
                         />
                     </div>
                 }
-
             </div>
         </div>
     )
