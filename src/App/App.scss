@@ -100,6 +100,10 @@
     justify-content: center;
 }
 
+.pagination>div {
+    justify-content: center;
+}
+
 .pagination button svg {
     stroke: var(--Gray-600);
 }
@@ -124,6 +128,13 @@
 
     .vacancies__search-input {
         display: none;
+    }
+
+}
+
+@media screen and (max-width: 769px) {
+    .vacancies-container {
+        gap: 10px;
     }
 
 }

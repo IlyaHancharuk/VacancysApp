@@ -15,27 +15,34 @@ type FiltersPropsType = {
 
 const useStyles = createStyles((theme) => ({
     container: {
+        display: 'block',
         padding: 0,
         margin: 0,
         maxWidth: 'inherit',
         position: 'relative',
         zIndex: 1,
+        [theme.fn.smallerThan('767')]: {
+            display: 'contents',
+        },
     },
 
     filters: {
         width: '100%',
-        [theme.fn.smallerThan('1026')]: {
+        [theme.fn.smallerThan('1023')]: {
             display: 'none',
         },
     },
 
     toggler: {
-        [theme.fn.largerThan('1026')]: {
+        [theme.fn.largerThan('1023')]: {
             display: 'none',
         },
-        position: 'absolute',
-        top: '-103px',
-        right: '0'
+        [theme.fn.largerThan('767')]: {
+            position: 'absolute',
+            right: '0',
+            top: '-73px',
+        },
+        
     },
 
     drawer: {
@@ -58,26 +65,26 @@ export const FiltersContainer: FC<FiltersPropsType> = ({
         <Container className={classes.container}>
             <Group className={classes.filters}>
                 <Filters disabled={disabled}
-                         selectItems={selectItems}
-                         onSubmitCallback={onFiltersSubmitCallback}
+                    selectItems={selectItems}
+                    onSubmitCallback={onFiltersSubmitCallback}
                 />
             </Group>
 
-            <Button onClick={toggle} className={classes.toggler} size="m" children={'Фильтры'}/>
+            <Button onClick={toggle} className={classes.toggler} size="m" children={'Фильтры'} />
 
             <Drawer className={classes.drawer} opened={opened} onClose={close} >
                 <SearchInput disabled={disabled}
-                             onSubmitCallback={onSearchSubmitCallback}
-                             onDrawerClose={close}
+                    onSubmitCallback={onSearchSubmitCallback}
+                    onDrawerClose={close}
                 />
                 <br />
                 <br />
                 <Filters disabled={disabled}
-                         selectItems={selectItems}
-                         onSubmitCallback={onFiltersSubmitCallback}
-                         onDrawerClose={close}
+                    selectItems={selectItems}
+                    onSubmitCallback={onFiltersSubmitCallback}
+                    onDrawerClose={close}
                 />
-                
+
             </Drawer>
         </Container>
     );
