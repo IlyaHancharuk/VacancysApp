@@ -1,22 +1,28 @@
 import React, { FC } from "react";
 import './filters.scss'
-import TextButton from "../Buttons/TextButton/TextButton";
-import { SelectComponent } from "../Select/SelectComponent";
-import { SalaryInput } from "../SalaryInput/SalaryInput";
-import Button from "../Buttons/Button/Button";
+import TextButton from "../../Buttons/TextButton/TextButton";
+import { SelectComponent } from "../../Select/SelectComponent";
+import { SalaryInput } from "../../SalaryInput/SalaryInput";
+import Button from "../../Buttons/Button/Button";
 import { useForm } from '@mantine/form';
-import { FiltersFormValuesType } from "../../types";
+import { FiltersFormValuesType } from "../../../types";
 import { SelectItem } from "@mantine/core";
-import { useAppDispatch } from "../../App/store";
-import { setFormParamsAC } from "../../App/reducers/filterParamsReducer";
+import { useAppDispatch } from "../../../App/store";
+import { setFormParamsAC } from "../../../App/reducers/filterParamsReducer";
 
 type FiltersPropsType = {
+    disabled: boolean
     selectItems: SelectItem[]
     onSubmitCallback(filterValues: FiltersFormValuesType): void
-    disabled: boolean
+    onDrawerClose?(): void
 }
 
-const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback, disabled }) => {
+const Filters: FC<FiltersPropsType> = ({
+    disabled,
+    selectItems,
+    onSubmitCallback,
+    onDrawerClose,
+}) => {
     const initialValues: FiltersFormValuesType = {
         category: '',
         payment_from: '',
@@ -43,6 +49,7 @@ const Filters: FC<FiltersPropsType> = ({ selectItems, onSubmitCallback, disabled
             <form onSubmit={form.onSubmit((values) => {
                         dispatch(setFormParamsAC(values))
                         onSubmitCallback(values)
+                        onDrawerClose && onDrawerClose() 
                     })}
                   onReset={form.onReset}
             >

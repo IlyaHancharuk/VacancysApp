@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { VacansiesPage } from '../pages/VacansiesPage';
+import { VacanciesPage } from '../pages/VacanciesPage';
 import Header from '../components/Header/Header';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { FavoritesPage } from '../pages/FavoritesPage';
 import { VacancyPage } from '../pages/VacancyPage';
 import { favoriteVacanciesAPI } from '../APITools/APITools';
@@ -39,8 +39,8 @@ const App = () => {
             <Header />
             <main className='content-wrapper'>
                 <Routes>
-                    <Route path="/" element={<VacansiesPage />} />
-                    <Route path="/vacancies" element={<VacansiesPage />} />
+                    <Route path="/" element={<Navigate to={"/vacancies"} />} />
+                    <Route path="/vacancies" element={<VacanciesPage />} />
                     <Route path="/favorites" element={<FavoritesPage />} />
                     <Route path="/vacancies/:vacancyId" element={<VacancyPage />} />
                 </Routes>
