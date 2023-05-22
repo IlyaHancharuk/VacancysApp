@@ -3,7 +3,7 @@ import { SearchInput } from '../components/SearchInput/SearchInput'
 import { useAppDispatch, useAppSelector } from '../App/store'
 import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
 import { LoadingOverlay, Pagination, SelectItem } from '@mantine/core'
-import { getVacancies } from '../App/reducers/vacanciesReducer'
+import { getVacancies, updateVacansiecPageAC } from '../App/reducers/vacanciesReducer'
 import { FiltersFormValuesType } from '../types'
 import { FiltersContainer } from '../components/FiltersContainer/FiltersContainer'
 
@@ -13,7 +13,7 @@ const MAX_LENGTH_SELECT_ITEM_LEBEL = 30
 
 export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
     const dispatch = useAppDispatch()
-    const { vacancies, total, MAX_VACANCIES_IN_PAGE } = useAppSelector(state => state.vacancies)
+    const { vacancies, total, MAX_VACANCIES_IN_PAGE, currentPage } = useAppSelector(state => state.vacancies)
     const categories = useAppSelector(state => state.categories)
     const favorite = useAppSelector(state => state.favorite.allFavorite)
     const filterParams = useAppSelector(state => state.filterParams)
@@ -35,12 +35,15 @@ export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
 
     const onSearchSubmitCallback = () => {
         dispatch(getVacancies(favorite, filterParams))
+        dispatch(updateVacansiecPageAC(1))
     }
     const onSubmitFiltersCallback = (filterValues: FiltersFormValuesType) => {
         dispatch(getVacancies(favorite, { ...filterValues, keyword: filterParams.keyword}))
+        dispatch(updateVacansiecPageAC(1))
     }
     const onPaginateCallback = (page: number) => {
         dispatch(getVacancies(favorite, filterParams, page))
+        dispatch(updateVacansiecPageAC(page))
     }
 
     return (
@@ -68,6 +71,8 @@ export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
                     <div className='pagination'>
                         <Pagination onChange={onPaginateCallback}
                                     total={pageCount}
+                                    defaultValue={currentPage}
+                                    value={currentPage}
                                     disabled={disabled}
                                     radius={4}
                                     spacing={8}
