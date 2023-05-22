@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/vacancies/static/css/main.b740db5b.css",
+    "main.js": "/vacancies/static/js/main.f98d2812.js",
+    "static/js/787.8bf6b8be.chunk.js": "/vacancies/static/js/787.8bf6b8be.chunk.js",
+    "static/media/Inter-Bold.ttf": "/vacancies/static/media/Inter-Bold.9aab1ebe6bd16660e37e.ttf",
+    "static/media/Inter-SemiBold.ttf": "/vacancies/static/media/Inter-SemiBold.1616d5720720a412cfc8.ttf",
+    "static/media/Inter-Medium.ttf": "/vacancies/static/media/Inter-Medium.9d1fd4235eeb376c5f96.ttf",
+    "static/media/Inter-Regular.ttf": "/vacancies/static/media/Inter-Regular.b559a93b35af397f4b6f.ttf",
+    "static/media/Poppins-SemiBold.ttf": "/vacancies/static/media/Poppins-SemiBold.090bd619384bb8d4c289.ttf",
+    "static/media/frame.svg": "/vacancies/static/media/frame.b0a6c20b754430db6123ad44bd58ff12.svg",
+    "static/media/location.svg": "/vacancies/static/media/location.3212d13da7ef5d83e6a193b1d16f17fa.svg",
+    "index.html": "/vacancies/index.html",
+    "static/media/search.svg": "/vacancies/static/media/search.17d29e750db9b1de9ccffb2f30bd8854.svg",
+    "main.b740db5b.css.map": "/vacancies/static/css/main.b740db5b.css.map",
+    "main.f98d2812.js.map": "/vacancies/static/js/main.f98d2812.js.map",
+    "787.8bf6b8be.chunk.js.map": "/vacancies/static/js/787.8bf6b8be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b740db5b.css",
+    "static/js/main.f98d2812.js"
+  ]
+}
