@@ -11,6 +11,7 @@ type FavoriteVacanciesStateType = {
 type VacansiesStateType = {
     vacancies: Vacancy[]
     MAX_VACANCIES_IN_PAGE: number
+    currentPage: number
     total: number
 }
 const MAX_VACANCIES_COUNT = 500
@@ -24,6 +25,7 @@ const defaultFilterParams: FilterParamsType = {
 const initialState: VacansiesStateType = {
     vacancies: [],
     MAX_VACANCIES_IN_PAGE: 4,
+    currentPage: 1,
     total: 0
 }
 
@@ -50,6 +52,11 @@ export const vacanciesReducer = (state = initialState, action: VacanciesActionTy
                         ? {...v, isFavorite: action.isFavorite}
                         : v)
             }
+        case "UPDATE-PAGE":
+            return {
+                ...state, 
+                currentPage: action.page
+            }
         default:
             return state
     }
@@ -57,6 +64,7 @@ export const vacanciesReducer = (state = initialState, action: VacanciesActionTy
 
 export type VacanciesActionType = ReturnType<typeof setVacansiesAC>
     | ReturnType<typeof updateVacansyFavoriteStatusAC>
+    | ReturnType<typeof updateVacansiecPageAC>
 
 export const setVacansiesAC = (vacansies: Vacancy[], total: number, favoriteVacancies: Vacancy[]) => {
     return {
@@ -71,6 +79,12 @@ export const updateVacansyFavoriteStatusAC = (id: number, isFavorite: boolean) =
         type: "UPDATE-FAVORITE-STATUS",
         id,
         isFavorite
+    } as const
+}
+export const updateVacansiecPageAC = (page: number) => {
+    return {
+        type: "UPDATE-PAGE",
+        page
     } as const
 }
 

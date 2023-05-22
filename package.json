@@ -1,6 +1,6 @@
 {
   "name": "vacancies-app",
-  "homepage": "https://IlyaHancharuk.github.io/vacancies-app",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,19 +1,19 @@
 import React, { FC } from 'react'
 import { SearchInput } from '../components/SearchInput/SearchInput'
-import Filters from '../components/Filters/Filters'
 import { useAppDispatch, useAppSelector } from '../App/store'
 import { VacanciesItem } from '../components/VacanciesItem/VacanciesItem'
 import { LoadingOverlay, Pagination, SelectItem } from '@mantine/core'
-import { getVacancies } from '../App/reducers/vacanciesReducer'
+import { getVacancies, updateVacansiecPageAC } from '../App/reducers/vacanciesReducer'
 import { FiltersFormValuesType } from '../types'
+import { FiltersContainer } from '../components/FiltersContainer/FiltersContainer'
 
 type VacansiesPagePropsType = {}
 
 const MAX_LENGTH_SELECT_ITEM_LEBEL = 30
 
-export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
+export const VacanciesPage: FC<VacansiesPagePropsType> = (props) => {
     const dispatch = useAppDispatch()
-    const { vacancies, total, MAX_VACANCIES_IN_PAGE } = useAppSelector(state => state.vacancies)
+    const { vacancies, total, MAX_VACANCIES_IN_PAGE, currentPage } = useAppSelector(state => state.vacancies)
     const categories = useAppSelector(state => state.categories)
     const favorite = useAppSelector(state => state.favorite.allFavorite)
     const filterParams = useAppSelector(state => state.filterParams)
@@ -33,22 +33,30 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
         <VacanciesItem key={v.id} vacancy={v} withLink/>
     ))
 
-    const onSubmitCallback = () => {
+    const onSearchSubmitCallback = () => {
         dispatch(getVacancies(favorite, filterParams))
+        dispatch(updateVacansiecPageAC(1))
     }
     const onSubmitFiltersCallback = (filterValues: FiltersFormValuesType) => {
         dispatch(getVacancies(favorite, { ...filterValues, keyword: filterParams.keyword}))
+        dispatch(updateVacansiecPageAC(1))
     }
     const onPaginateCallback = (page: number) => {
         dispatch(getVacancies(favorite, filterParams, page))
+        dispatch(updateVacansiecPageAC(page))
     }
 
     return (
         <div className='vacancies-container'>
-            <Filters disabled={disabled} onSubmitCallback={onSubmitFiltersCallback} selectItems={selectItems} />
+
+            <FiltersContainer disabled={disabled}
+                              onFiltersSubmitCallback={onSubmitFiltersCallback}
+                              onSearchSubmitCallback={onSearchSubmitCallback}
+                              selectItems={selectItems} />
+
             <div className='vacancies'>
                 <div className='vacancies__search-input'>
-                    <SearchInput disabled={disabled} onSubmitCallback={onSubmitCallback} />
+                    <SearchInput disabled={disabled} onSubmitCallback={onSearchSubmitCallback} />
                 </div>
 
                 <div className='vacancies__list'>
@@ -63,6 +71,8 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
                     <div className='pagination'>
                         <Pagination onChange={onPaginateCallback}
                                     total={pageCount}
+                                    defaultValue={currentPage}
+                                    value={currentPage}
                                     disabled={disabled}
                                     radius={4}
                                     spacing={8}
@@ -76,7 +86,6 @@ export const VacansiesPage: FC<VacansiesPagePropsType> = (props) => {
                         />
                     </div>
                 }
-
             </div>
         </div>
     )

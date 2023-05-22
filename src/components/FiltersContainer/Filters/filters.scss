@@ -1,10 +1,15 @@
 .filters {
+    width: 100%;
     padding: 20px;
     height: fit-content;
     background-color: var(--White);
     border: 1px solid var(--Gray-200);
     border-radius: 8px;
 }
+
+// .filters-drawer .filters {
+//     border: none;
+// }
 
 .filters form {
     display: flex;

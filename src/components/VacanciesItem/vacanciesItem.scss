@@ -14,6 +14,7 @@
 
     .item__description {
         display: flex;
+        flex-direction: row;
         align-items: center;
         gap: 12px;
         font-size: 16px;
@@ -29,6 +30,30 @@
 
         .employment-type {
             font-family: 'Inter-Regular';
+        }
+
+        @media screen and (max-width: 767px) {
+            .dot {
+                display: none;
+            }
+        
+        }
+
+    }
+
+    @media screen and (max-width: 767px) {
+        .item__title {
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .item__description {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            font-size: 14px;
+            line-height: 16px;
         }
     }
 
