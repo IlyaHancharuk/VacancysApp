@@ -1,8 +1,9 @@
-import { vacancyAPI } from "../../APITools/APITools";
-import { FilterParamsType, Vacancy } from "../../types";
+import { demoVacanciesAPI, vacancyAPI } from "../../APITools/APITools";
+import { DemoGetVacanciesResponseType, FilterParamsType, Vacancy } from "../../types";
 import { Dispatch } from "redux";
 import { setAppStatusAC } from "./appReducer";
 import { handleError, handleServerError } from "../../utils/errorUtils";
+import { useAppSelector } from "../store";
 
 type FavoriteVacanciesStateType = {
     [id: number]: Vacancy
@@ -95,7 +96,7 @@ export const getVacancies = (
 ) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await vacancyAPI.getVacancies(params, page, count)
+        const res = await demoVacanciesAPI.getVacancies(params, page, count) as DemoGetVacanciesResponseType
         if (res.status === 200) {
             const vacancies = res.data.objects.map(v => ({
                 isFavorite: false,
@@ -113,6 +114,7 @@ export const getVacancies = (
             dispatch(setVacansiesAC(vacancies, total, favoriteVacancies))
             dispatch(setAppStatusAC('successed'))
         } else {
+            // @ts-ignore
             handleServerError(res)
             dispatch(setAppStatusAC('failed'))
         }

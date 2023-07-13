@@ -53,3 +53,13 @@ export type Category = {
     title_rus: string
     title_trimmed: string
 }
+
+export type DemoGetVacanciesResponseType = {
+    status: number,
+    data: GetVacanciesResponseType
+}
+
+export type DemoGetCategoriesResponseType = {
+    status: number,
+    data: GetCategoriesResponseType
+}
