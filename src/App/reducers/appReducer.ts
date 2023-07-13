@@ -1,7 +1,8 @@
 import { Dispatch } from "redux";
-import { vacancyAPI } from "../../APITools/APITools";
+import { demoVacanciesAPI, vacancyAPI } from "../../APITools/APITools";
 import { handleError } from "../../utils/errorUtils";
 import { AuthResponseType } from "../../types";
+import { notifications } from "@mantine/notifications";
 
 type RequestStatusType = 'loading' | 'successed' | 'failed';
 type AppStateType = {
@@ -52,6 +53,39 @@ export const getAuth = () => async (dispatch: Dispatch) => {
         } else {
             const res = await vacancyAPI.getAuth()
             localStorage.setItem('joboredAuthData', JSON.stringify(res.data))
+        }
+    } catch (error) {
+        handleError(error, 'Ошибка аутентификации')
+    }
+}
+
+export const getDemoAuth = () => async (dispatch: Dispatch) => {
+    try {
+        const authDataStr = localStorage.getItem('_DEMO_joboredAuthData')
+        if (authDataStr) {
+            notifications.show({
+                withCloseButton: true,
+                autoClose: 2000,
+                title: 'Aутентификация',
+                message: authDataStr,
+                color: 'green',
+                style: { backgroundColor: 'white' },
+                sx: { backgroundColor: 'green' },
+                loading: false,
+            });
+        } else {
+            const res = await demoVacanciesAPI.getAuth() as string
+            localStorage.setItem('_DEMO_joboredAuthData', JSON.stringify(res))
+            notifications.show({
+                withCloseButton: true,
+                autoClose: 5000,
+                title: 'Aутентификация',
+                message: res,
+                color: 'green',
+                style: { backgroundColor: 'white' },
+                sx: { backgroundColor: 'green' },
+                loading: false,
+            });
         }
     } catch (error) {
         handleError(error, 'Ошибка аутентификации')
