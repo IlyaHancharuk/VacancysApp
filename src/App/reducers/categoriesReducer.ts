@@ -1,5 +1,5 @@
-import { vacancyAPI } from "../../APITools/APITools";
-import { Category } from "../../types";
+import { demoVacanciesAPI, vacancyAPI } from "../../APITools/APITools";
+import { Category, DemoGetCategoriesResponseType } from "../../types";
 import { Dispatch } from "redux";
 import { setAppStatusAC } from "./appReducer";
 import { handleError, handleServerError } from "../../utils/errorUtils";
@@ -26,7 +26,7 @@ export const setCategoriesAC = (categories: Category[]) => {
 export const getCaregories = () => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await vacancyAPI.getCategories()
+        const res = await demoVacanciesAPI.getCategories() as DemoGetCategoriesResponseType
         if (res.status === 200) {
             const categories = res.data.map(c => ({
                 key: c.key,
@@ -36,6 +36,7 @@ export const getCaregories = () => async (dispatch: Dispatch) => {
             dispatch(setCategoriesAC(categories))
             dispatch(setAppStatusAC('successed'))
         } else {
+            // @ts-ignore
             handleServerError(res)
             dispatch(setAppStatusAC('failed'))
         }
