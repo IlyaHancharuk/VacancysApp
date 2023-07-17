@@ -135,6 +135,7 @@
 @media screen and (max-width: 769px) {
     .vacancies-container {
         gap: 10px;
+        grid-template-rows: 39px auto;
     }
 
 }
